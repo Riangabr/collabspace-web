@@ -2,7 +2,7 @@ import AuthRoutes from "./auth";
 import DeAuthRoutes from "./deauth";
 
 function AppRoutes() {
-  const signed = false;
+  const signed = true;
   return signed ? <AuthRoutes /> : <DeAuthRoutes />;
 }
 
