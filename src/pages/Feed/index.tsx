@@ -13,7 +13,6 @@ const Feed: React.FC = () => {
         <ProfileCard />
 
         <Posts>
-          {" "}
           <Post />
         </Posts>
       </Content>

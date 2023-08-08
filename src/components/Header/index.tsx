@@ -1,9 +1,11 @@
+import { LogoRocket } from "../../assets/sources";
+
 import { Container } from "./styles";
 
 const Header: React.FC = () => {
   return (
     <Container>
-      <h1>Collabspace</h1>
+      <LogoRocket />
     </Container>
   );
 };

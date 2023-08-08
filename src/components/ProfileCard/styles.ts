@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const Container = styled.aside`
-  width: 30%;
+  width: 25%;
   height: 350px;
   background: var(--zinc-800);
 
@@ -44,8 +44,8 @@ export const Container = styled.aside`
 `;
 
 export const Cover = styled.img`
-  height: 6rem;
   width: 100%;
+  height: 6rem;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
 `;
@@ -72,6 +72,6 @@ export const ButtonEdit = styled.button`
 
   &:hover {
     color: var(--zinc-100);
-    background: var(--zinc-600);
+    background: var(--emerald-600);
   }
 `;

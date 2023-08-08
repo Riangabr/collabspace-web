@@ -31,24 +31,30 @@ export const Form = styled.form`
   }
 `;
 
+export const Group = styled.label`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+`;
+
 export const Label = styled.label`
   color: var(--zinc-100);
   font-weight: 300;
 `;
+
 export const Input = styled.input`
   height: 48px;
-  background: var(--zinc-500);
+  background: var(--zinc-800);
   color: var(--zinc-100);
-  font-size: 1.125rem;
-  font-weight: bold;
-  padding: 0 1rem;
+  font-size: 1rem;
+  padding: 1.25rem 1rem;
+  border-radius: 4px;
   border: 0;
   outline: 0;
-  border-radius: 4px;
-  transition: all 0.25rem;
 
   ::placeholder {
-    color: var(--zinc-800);
+    color: ar(--zinc-500);
   }
 `;
 
@@ -56,9 +62,9 @@ export const Button = styled.button`
   height: 48px;
   background: var(--emerald-600);
   color: var(--zinc-100);
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
-  padding: 0 16px;
+  padding: 0 1rem;
   border: 0;
   outline: 0;
   border-radius: 4px;
@@ -66,7 +72,7 @@ export const Button = styled.button`
 
   cursor: pointer;
 
-  :hover {
+  &:hover {
     background: var(--emerald-800);
   }
 `;

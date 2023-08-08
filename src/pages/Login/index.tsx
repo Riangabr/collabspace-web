@@ -1,4 +1,4 @@
-import { Container, Form, Label, Input, Button } from "./styles";
+import { Container, Form, Group, Label, Input, Button } from "./styles";
 
 const Login: React.FC = () => {
   return (
@@ -6,15 +6,15 @@ const Login: React.FC = () => {
       <Form>
         <h1>Entrar</h1>
 
-        <div>
+        <Group>
           <Label htmlFor="">Endereço de e-mail</Label>
-          <Input type="text" placeholder="Digite seu email" />
-        </div>
+          <Input type="text" placeholder="Digite seu e-mail" />
+        </Group>
 
-        <div>
+        <Group>
           <Label htmlFor="">Sua senha secreta</Label>
-          <Input type="text" placeholder="Digite sua senha" />
-        </div>
+          <Input type="password" placeholder="Digite sua senha" />
+        </Group>
 
         <Button>Fazer login</Button>
       </Form>

@@ -1,42 +1,66 @@
 import Avatar from "../Avatar";
+import Comment from "../Comment";
 
-import { Container, Content, Divider, Hashtags } from "./styles";
+import {
+  Container,
+  Header,
+  Author,
+  AuthorInfo,
+  Content,
+  Description,
+  Hashtags,
+  Divider,
+  CommentForm,
+  Comments,
+} from "./styles";
 
 const Post: React.FC = () => {
   return (
     <Container>
-      <header>
-        <div>
+      <Header>
+        <Author>
           <Avatar />
 
-          <section>
-            <h1>Rian Gabriel</h1>
-            <p>riangabr2711@speedemail.com</p>
-          </section>
-        </div>
+          <AuthorInfo>
+            <h1>Natan Foleto</h1>
+            <p>natanfoleto@hotmail.com</p>
+          </AuthorInfo>
+        </Author>
 
-        <p>Publicado á 1h</p>
-      </header>
-      <main>
-        <Content>
-          <p>Rei Fraco</p>
-          <p>Sabe como o Michael Jackson anda na rua?</p>
-          <p></p>
-        </Content>
+        <time>Publicado à 1h</time>
+      </Header>
+
+      <Content>
+        <Description>
+          <p>Fala galeraa 👋</p>
+          <p>
+            Você pode sempre sonhar, e seus sonhos se tornarão sonhos, e a
+            realidade se tornará realidade. Mas é você que tem que torná-los
+            realidade. 🚀
+          </p>
+        </Description>
 
         <Hashtags>
-          <span> #cuspé </span>
+          <span>#collabspace</span>
+          <span>#confia</span>
         </Hashtags>
-      </main>
+      </Content>
+
       <Divider />
 
-      <footer>
+      <CommentForm>
         <h1>Deixe seu comentário</h1>
 
         <textarea name=""></textarea>
 
         <button>Comentar</button>
-      </footer>
+      </CommentForm>
+
+      <Divider />
+
+      <Comments>
+        <Comment />
+      </Comments>
     </Container>
   );
 };

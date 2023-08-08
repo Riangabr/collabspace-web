@@ -1,4 +1,4 @@
-import { ButtonEdit, Container, Cover, Divider } from "./styles";
+import { Container, Cover, Divider, ButtonEdit } from "./styles";
 
 import Avatar from "../Avatar";
 
@@ -6,7 +6,7 @@ const ProfileCard: React.FC = () => {
   return (
     <Container>
       <header>
-        <Cover src="https://i.pinimg.com/474x/ea/80/03/ea8003eda835af024292148060887ed4.jpg" />
+        <Cover src="https://cutewallpaper.org/29/dual-screen-mr-robot-wallpaper/247286624.jpg" />
 
         <div>
           <Avatar />
@@ -14,13 +14,14 @@ const ProfileCard: React.FC = () => {
       </header>
 
       <main>
-        <h1>Rian Gabriel</h1>
-        <p>riangabr2711@speedmail.com</p>
+        <h1>Natan Foleto</h1>
+        <p>natanfoleto@hotmail.com</p>
       </main>
+
       <Divider />
 
       <footer>
-        <ButtonEdit>Editar perfil</ButtonEdit>
+        <ButtonEdit>Editar seu perfil</ButtonEdit>
       </footer>
     </Container>
   );

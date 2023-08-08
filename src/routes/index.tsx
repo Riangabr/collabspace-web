@@ -1,9 +1,10 @@
 import AuthRoutes from "./auth";
-import DeAuthRoutes from "./deauth";
+import DeauthRoutes from "./deauth";
 
 function AppRoutes() {
   const signed = true;
-  return signed ? <AuthRoutes /> : <DeAuthRoutes />;
+
+  return signed ? <AuthRoutes /> : <DeauthRoutes />;
 }
 
 export default AppRoutes;
