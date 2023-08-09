@@ -11,7 +11,9 @@ import {
   Hashtags,
   Divider,
   CommentForm,
+  InputArea,
   Comments,
+  ButtonComment,
 } from "./styles";
 
 const Post: React.FC = () => {
@@ -19,11 +21,14 @@ const Post: React.FC = () => {
     <Container>
       <Header>
         <Author>
-          <Avatar />
+          <Avatar
+            src="https://animepersona.com/wp-content/uploads/2023/03/1678110464420.jpg"
+            borderEffect
+          />
 
           <AuthorInfo>
-            <h1>Natan Foleto</h1>
-            <p>natanfoleto@hotmail.com</p>
+            <h1>Rian Gabriel</h1>
+            <p>riangabr2711@speedmail.com</p>
           </AuthorInfo>
         </Author>
 
@@ -51,9 +56,9 @@ const Post: React.FC = () => {
       <CommentForm>
         <h1>Deixe seu comentário</h1>
 
-        <textarea name=""></textarea>
+        <InputArea name=""></InputArea>
 
-        <button>Comentar</button>
+        <ButtonComment>Comentar</ButtonComment>
       </CommentForm>
 
       <Divider />

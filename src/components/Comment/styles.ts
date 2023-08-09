@@ -33,22 +33,22 @@ export const AuthorAndTime = styled.div`
     font-size: 0.75rem;
     color: var(--zinc-500);
   }
+`;
 
-  button {
-    position: absolute;
-    top: 0;
-    right: 0;
+export const ButtonDelete = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
 
-    border: 0;
-    outline: 0;
-    color: var(--zinc-500);
-    background: transparent;
-    transition: all 0.15s;
+  border: 0;
+  outline: 0;
+  color: var(--zinc-500);
+  background: transparent;
+  transition: all 0.15s;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    &:hover {
-      color: var(--red-500);
-    }
+  &:hover {
+    color: var(--red-500);
   }
 `;
