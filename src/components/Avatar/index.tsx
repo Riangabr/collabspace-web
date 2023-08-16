@@ -7,7 +7,7 @@ interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const Avatar: React.FC<AvatarProps> = ({ borderEffect = false, ...rest }) => {
-  return <Container {...rest} borderEffect={borderEffect} />;
+  return <Container {...rest} $borderEffect={borderEffect} />;
 };
 
 export default Avatar;

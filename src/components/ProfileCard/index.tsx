@@ -1,8 +1,8 @@
 import {
   Container,
-  Content,
   Header,
   Cover,
+  Content,
   Divider,
   ButtonEdit,
   Footer,
@@ -18,15 +18,15 @@ const ProfileCard: React.FC = () => {
 
         <div>
           <Avatar
-            src="https://animepersona.com/wp-content/uploads/2023/03/1678110464420.jpg"
+            src="https://i.pinimg.com/736x/b7/65/02/b76502e936cd209b595bd7a537e74db4.jpg"
             borderEffect
           />
         </div>
       </Header>
 
       <Content>
-        <h1>Rian Gabriel</h1>
-        <p>rianagb2711@speedmail.com</p>
+        <h1>Natan Foleto</h1>
+        <p>natanfoleto@hotmail.com</p>
       </Content>
 
       <Divider />
