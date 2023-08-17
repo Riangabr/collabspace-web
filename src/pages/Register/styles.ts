@@ -8,6 +8,10 @@ interface AreaPasswordProps {
   $areaPassword: boolean;
 }
 
+interface PasswordMeterProps {
+  $isWeak: boolean;
+}
+
 export const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -29,7 +33,7 @@ export const Form = styled.form`
     color: var(--zinc-100);
     font-size: 3rem;
     font-weight: 600;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   input[type="date"] {
@@ -39,6 +43,16 @@ export const Form = styled.form`
   input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(66.66%);
   }
+`;
+
+export const ErrorAlert = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--red-500);
+  color: var(--red-500);
+  margin-bottom: 1.5rem;
 `;
 
 export const Group = styled.div`
@@ -81,7 +95,7 @@ export const AreaEmail = styled(Group)<AreaEmailProps>`
 `;
 
 export const AreaPassword = styled(Group)<AreaPasswordProps>`
-  max-height: 150px;
+  max-height: 160px;
   transition: 0s.3s ease;
   overflow: hidden;
 
@@ -89,6 +103,36 @@ export const AreaPassword = styled(Group)<AreaPasswordProps>`
     $areaPassword &&
     css`
       max-height: 0;
+    `}
+`;
+
+export const PasswordMeter = styled.div<PasswordMeterProps>`
+  height: 2px;
+  border-radius: 99999px;
+  font-size: 0.75rem;
+  text-align: ${({ $isWeak }) => ($isWeak ? "left" : "right")};
+  margin-bottom: 8px;
+
+  background: var(--zinc-300);
+
+  &::after {
+    content: "Senha Fraca";
+    display: block;
+    padding-top: 2px;
+    color: var(--zinc-300);
+  }
+
+  ${({ $isWeak }) =>
+    !$isWeak &&
+    css`
+      background: var(--emerald-600);
+
+      &::after {
+        content: "Senha Forte";
+        display: block;
+        padding-top: 2px;
+        color: var(--emerald-600);
+      }
     `}
 `;
 

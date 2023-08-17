@@ -8,7 +8,9 @@ import {
   Input,
   AreaEmail,
   AreaPassword,
+  PasswordMeter,
   Button,
+  ErrorAlert,
 } from "./styles";
 
 const Register: React.FC = () => {
@@ -22,25 +24,33 @@ const Register: React.FC = () => {
   const areaEmail = !name || !birthDate;
   const areaPassword = !email || !confirmEmail || areaEmail;
   const isTheSameEmails = email === confirmEmail;
-  const isEmailReal = !email.match(
+  const isEmail = email.match(
     /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
   );
   const isTheSamePasswords = password === confirmPassword;
-  const isPasswordStrong = !password.match(
+  const isPasswordStrong = password.match(
     /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
   );
 
   return (
     <Container>
-      <Form>
+      <Form autoComplete="on">
         <h1>Cadastre-se</h1>
 
+        {email && !isEmail && <ErrorAlert>Os e-mails não é valido!</ErrorAlert>}
+        {confirmEmail && !isTheSameEmails && (
+          <ErrorAlert>Os e-mails não coincidem!</ErrorAlert>
+        )}
+        {confirmPassword && !isTheSamePasswords && (
+          <ErrorAlert> As senhas não ocoincidem!</ErrorAlert>
+        )}
         <Group>
           <Label htmlFor="name">Nome</Label>
 
           <Input
             type="text"
             id="name"
+            required
             placeholder="Seu nome completo"
             value={name}
             onChange={(e) => {
@@ -56,6 +66,7 @@ const Register: React.FC = () => {
             type="date"
             id="birthdate"
             value={birthDate}
+            required
             min="1900-01-01"
             max="2022-12-31"
             onChange={(e) => {
@@ -71,6 +82,7 @@ const Register: React.FC = () => {
             type="text"
             id="email"
             placeholder="Seu e-mail"
+            required
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -80,6 +92,7 @@ const Register: React.FC = () => {
           <Input
             type="text"
             id="confirmarEmail"
+            required
             placeholder="Confirmar e-mail"
             value={confirmEmail}
             onChange={(e) => {
@@ -92,19 +105,22 @@ const Register: React.FC = () => {
         </AreaEmail>
 
         <AreaPassword
-          $areaPassword={areaPassword || !isTheSameEmails || isEmailReal}
+          $areaPassword={areaPassword || !isTheSameEmails || !isEmail}
         >
           <Label htmlFor="password">Sua senha secreta</Label>
 
           <Input
             type="password"
             id="password"
+            required
             placeholder="Sua senha"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
+
+          <PasswordMeter $isWeak={!isPasswordStrong} />
 
           <Input
             type="password"
@@ -125,9 +141,9 @@ const Register: React.FC = () => {
             areaEmail ||
             areaPassword ||
             !isTheSameEmails ||
-            isEmailReal ||
+            !isEmail ||
             !isTheSamePasswords ||
-            isPasswordStrong
+            !isPasswordStrong
           }
         >
           Cadastrar
