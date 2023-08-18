@@ -59,6 +59,7 @@ export const Button = styled.button`
   font-size: 1.125rem;
   font-weight: bold;
   padding: 0 1rem;
+  margin-bottom: 1.5rem;
   border: 0;
   outline: 0;
   border-radius: 4px;
@@ -68,5 +69,24 @@ export const Button = styled.button`
 
   &:hover {
     background: var(--emerald-800);
+  }
+`;
+
+export const LinkRegister = styled.div`
+  font-size: 0.875rem;
+  text-align: center;
+
+  cursor: pointer;
+
+  p {
+    color: var(--zinc-400);
+  }
+
+  a {
+    color: var(--emerald-500);
+    transition: all 0.15s;
+  }
+  &:hover {
+    color: var(--emerald-600);
   }
 `;

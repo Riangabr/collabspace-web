@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 
 import {
@@ -11,6 +13,7 @@ import {
   PasswordMeter,
   Button,
   ErrorAlert,
+  LinkLogin,
 } from "./styles";
 
 const Register: React.FC = () => {
@@ -31,6 +34,12 @@ const Register: React.FC = () => {
   const isPasswordStrong = password.match(
     /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
   );
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/");
+  };
 
   return (
     <Container>
@@ -148,6 +157,11 @@ const Register: React.FC = () => {
         >
           Cadastrar
         </Button>
+
+        <LinkLogin>
+          <p>Já tem conta?</p>
+          <a onClick={handleLogin}>Logue-se agora!</a>
+        </LinkLogin>
       </Form>
     </Container>
   );
