@@ -9,7 +9,5 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.main`
-  display: flex;
-  gap: 2rem;
   padding: calc(5rem + 1.5rem) 2rem 1.5rem 2rem;
 `;

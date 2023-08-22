@@ -4,22 +4,24 @@ import ProfileCard from "../../components/ProfileCard";
 import CreatePost from "../../components/CreatePost";
 import Post from "../../components/Post";
 
-import { Posts } from "./styles";
+import { Container, Posts } from "./styles";
 
 const Feed: React.FC = () => {
   return (
     <LayoutDefault>
-      <ProfileCard />
+      <Container>
+        <ProfileCard />
 
-      <Posts>
-        <CreatePost />
+        <Posts>
+          <CreatePost />
 
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-      </Posts>
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+        </Posts>
+      </Container>
     </LayoutDefault>
   );
 };
