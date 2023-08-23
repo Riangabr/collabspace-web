@@ -18,7 +18,7 @@ const RequestFriend: React.FC = () => {
 
         <Info>
           <h1>Alfa</h1>
-          <p>alfadosalfas@gmail.com</p>
+          <p>SuperAlfa@gmail.com</p>
         </Info>
       </User>
       <Actions>

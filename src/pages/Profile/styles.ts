@@ -7,9 +7,43 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   width: 75%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  margin-bottom: 2rem;
 `;
 
 export const Overview = styled.div``;
+
+export const UserBanner = styled.div`
+  position: relative;
+`;
+
+export const EditCoverButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 100%;
+  border: 0;
+  outline: 0;
+  background: var(--zinc-200);
+  color: var(--emerald-600);
+  transition: ease 0.25s;
+
+  cursor: pointer;
+
+  &:hover {
+    background: var(--emerald-600);
+    color: var(--zinc-200);
+  }
+`;
 
 export const Cover = styled.img`
   display: block;
@@ -24,9 +58,30 @@ export const Avatar = styled.img`
   height: 192px;
   border-radius: 100%;
   object-fit: cover;
-  margin-top: -160px;
+  margin-top: -152px;
   margin-left: 2rem;
-  border: 2px solid var(--zinc-100);
+`;
+
+export const EditInfoButton = styled.button`
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--zinc-300);
+  transition: ease 0.15s;
+
+  cursor: pointer;
+
+  &:hover {
+    color: var(--zinc-400);
+  }
 `;
 
 export const UserInfo = styled.div`
@@ -34,7 +89,7 @@ export const UserInfo = styled.div`
   gap: 1rem;
   background: var(--zinc-800);
   border-radius: 0 0 8px 8px;
-  margin-top: -32px;
+  margin-top: -40px;
   padding: 4rem 1rem 2rem 1rem;
 `;
 
@@ -79,8 +134,58 @@ export const Contact = styled.div`
   margin-top: 1rem;
 
   span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
     color: var(--zinc-300);
     font-weight: 300;
+  }
+`;
+
+export const Friends = styled.div`
+  background: var(--zinc-800);
+  border-radius: 8px;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+
+  h1 {
+    font-size: 1.375rem;
+    color: var(--zinc-200);
+    font-weight: 600;
+  }
+`;
+
+export const FriendList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 2rem;
+
+  margin: 2rem 0;
+`;
+
+export const AreaFriendButton = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: -20px;
+
+  button {
+    height: 40px;
+    padding: 0 1rem;
+    border: 1px solid var(--zinc-500);
+    outline: 0;
+    border-radius: 8px;
+    font-weight: 500;
+    color: var(--zinc-300);
+    background: var(--zinc-800);
+    transition: all 0.15s;
+
+    cursor: pointer;
+
+    &:hover {
+      color: var(--zinc-200);
+      background: var(--zinc-700);
+    }
   }
 `;
 
