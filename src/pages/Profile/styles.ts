@@ -19,6 +19,11 @@ export const Overview = styled.div``;
 
 export const UserBanner = styled.div`
   position: relative;
+
+  div {
+    margin-top: -152px;
+    margin-left: 2rem;
+  }
 `;
 
 export const EditCoverButton = styled.button`
@@ -51,15 +56,6 @@ export const Cover = styled.img`
   height: 192px;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
-`;
-
-export const Avatar = styled.img`
-  display: block;
-  height: 192px;
-  border-radius: 100%;
-  object-fit: cover;
-  margin-top: -152px;
-  margin-left: 2rem;
 `;
 
 export const EditInfoButton = styled.button`
@@ -131,7 +127,6 @@ export const Contact = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
 
   span {
     display: flex;

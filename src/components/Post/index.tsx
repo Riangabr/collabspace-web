@@ -1,6 +1,6 @@
 import { ThumbsUp, ChatCircleText } from "phosphor-react";
 
-import Avatar from "../Avatar";
+import AvatarSquare from "../AvatarSquare";
 import Comment from "../Comment";
 import InputArea from "../InputArea";
 import Button from "../Button";
@@ -37,7 +37,7 @@ const Post: React.FC = () => {
     <Container>
       <Header>
         <Author>
-          <Avatar
+          <AvatarSquare
             src="https://b.fssta.com/uploads/application/soccer/headshots/713.png"
             borderEffect
           />

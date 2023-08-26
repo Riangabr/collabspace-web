@@ -6,13 +6,6 @@ export const Container = styled.div`
   gap: 1rem;
 `;
 
-export const Avatar = styled.img`
-  width: 72px;
-  height: 72px;
-  object-fit: cover;
-  border-radius: 8px;
-`;
-
 export const Info = styled.div`
   h1 {
     font-size: 1.125rem;

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Feed from "../pages/Feed";
 import Profile from "../pages/Profile";
@@ -6,6 +6,7 @@ import Profile from "../pages/Profile";
 function AuthRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/feed" />} />
       <Route path="/feed" element={<Feed />} />
       <Route path="/me" element={<Profile />} />
 

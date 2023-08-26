@@ -1,8 +1,9 @@
 import { Check, X } from "phosphor-react";
 
+import AvatarCircle from "../AvatarCircle";
+
 import {
   Container,
-  Avatar,
   Info,
   User,
   Actions,
@@ -14,8 +15,7 @@ const RequestFriend: React.FC = () => {
   return (
     <Container>
       <User>
-        <Avatar src="https://i.pinimg.com/originals/e4/34/2a/e4342a4e0e968344b75cf50cf1936c09.jpg"></Avatar>
-
+        <AvatarCircle src="https://i.pinimg.com/originals/e4/34/2a/e4342a4e0e968344b75cf50cf1936c09.jpg"></AvatarCircle>
         <Info>
           <h1>Alfa</h1>
           <p>SuperAlfa@gmail.com</p>

@@ -1,4 +1,4 @@
-import Avatar from "../Avatar";
+import Avatar from "../AvatarSquare";
 import InputArea from "../InputArea";
 import Button from "../Button";
 

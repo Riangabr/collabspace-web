@@ -36,6 +36,12 @@ export const Content = styled.div`
     font-size: 1rem;
     color: var(--zinc-200);
     font-weight: bold;
+
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   p {

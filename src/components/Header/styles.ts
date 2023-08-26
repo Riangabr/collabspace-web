@@ -11,4 +11,8 @@ export const Container = styled.header`
 
   position: fixed;
   z-index: 999;
+
+  svg {
+    cursor: pointer;
+  }
 `;

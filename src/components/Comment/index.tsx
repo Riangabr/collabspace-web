@@ -1,6 +1,6 @@
 import { Trash } from "phosphor-react";
 
-import Avatar from "../Avatar";
+import Avatar from "../AvatarSquare";
 
 import { Container, CommentBox, AuthorAndTime, ButtonDelete } from "./styles";
 

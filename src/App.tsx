@@ -2,15 +2,17 @@ import { BrowserRouter } from "react-router-dom";
 
 import AppRoutes from "./routes";
 
+import { AuthenticationProvider } from "./contexts/Authentication";
+
 import "./styles/main.css";
 
 function App() {
   return (
-    <div>
+    <AuthenticationProvider>
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
-    </div>
+    </AuthenticationProvider>
   );
 }
 

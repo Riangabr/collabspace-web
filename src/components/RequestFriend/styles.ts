@@ -6,12 +6,6 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
-export const Avatar = styled.img`
-  width: 48px;
-  height: 48px;
-  border-radius: 100%;
-`;
-
 export const User = styled.div`
   width: 80%;
 
@@ -32,6 +26,7 @@ export const Info = styled.div`
     font-size: 0.875rem;
     color: var(--zinc-200);
     font-weight: 200;
+    text-overflow: ellipsis;
   }
 `;
 
