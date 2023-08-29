@@ -9,6 +9,7 @@ interface User {
   avatarUrl: string | null;
   createdAt: string;
 }
+
 interface ISession {
   token: string;
   user: User;

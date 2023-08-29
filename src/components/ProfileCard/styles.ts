@@ -14,6 +14,8 @@ export const Header = styled.div`
 
   div {
     margin-top: -28px;
+
+    cursor: pointer;
   }
 `;
 

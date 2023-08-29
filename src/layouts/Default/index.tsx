@@ -12,6 +12,7 @@ const LayoutDefault: React.FC<LayoutDefaultProps> = ({ children }) => {
   return (
     <Container>
       <Header />
+
       <Content>{children}</Content>
     </Container>
   );

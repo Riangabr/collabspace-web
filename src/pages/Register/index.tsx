@@ -1,10 +1,14 @@
+import { useState, useCallback, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { useState } from "react";
+import { createUser } from "../../services/users";
+import { useAuthentication } from "../../contexts/Authentication";
 
 import {
   Container,
   Form,
+  ErrorAlert,
   Group,
   Label,
   Input,
@@ -12,11 +16,14 @@ import {
   AreaPassword,
   PasswordMeter,
   Button,
-  ErrorAlert,
   LinkLogin,
 } from "./styles";
 
 const Register: React.FC = () => {
+  const { handleLoggedEmail } = useAuthentication();
+
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
@@ -34,34 +41,71 @@ const Register: React.FC = () => {
   const isPasswordStrong = password.match(
     /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
   );
-
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     navigate("/");
-  };
+  }, [navigate]);
+
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+
+      try {
+        const { result, message, data } = await createUser({
+          name,
+          email,
+          confirmEmail,
+          password,
+          confirmPassword,
+          birthDate,
+        });
+
+        console.log(data);
+
+        if (result === "success") {
+          if (data) {
+            handleLoggedEmail(data.email);
+            toast.success(message);
+            handleLogin();
+          }
+        }
+
+        if (result === "error") toast.error(message);
+      } catch (error) {}
+    },
+    [
+      birthDate,
+      confirmEmail,
+      confirmPassword,
+      email,
+      name,
+      password,
+      handleLogin,
+      handleLoggedEmail,
+    ],
+  );
 
   return (
     <Container>
-      <Form autoComplete="on">
+      <Form autoComplete="on" onSubmit={handleSubmit}>
         <h1>Cadastre-se</h1>
 
-        {email && !isEmail && <ErrorAlert>Os e-mails não é valido!</ErrorAlert>}
+        {email && !isEmail && <ErrorAlert>O e-mail não é válido!</ErrorAlert>}
         {confirmEmail && !isTheSameEmails && (
           <ErrorAlert>Os e-mails não coincidem!</ErrorAlert>
         )}
         {confirmPassword && !isTheSamePasswords && (
-          <ErrorAlert> As senhas não ocoincidem!</ErrorAlert>
+          <ErrorAlert>As senhas não coincidem!</ErrorAlert>
         )}
+
         <Group>
           <Label htmlFor="name">Nome</Label>
 
           <Input
             type="text"
             id="name"
-            required
             placeholder="Seu nome completo"
             value={name}
+            required
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -75,9 +119,9 @@ const Register: React.FC = () => {
             type="date"
             id="birthdate"
             value={birthDate}
-            required
             min="1900-01-01"
             max="2022-12-31"
+            required
             onChange={(e) => {
               setBirthDate(e.target.value);
             }}
@@ -91,8 +135,8 @@ const Register: React.FC = () => {
             type="text"
             id="email"
             placeholder="Seu e-mail"
-            required
             value={email}
+            required
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -101,9 +145,9 @@ const Register: React.FC = () => {
           <Input
             type="text"
             id="confirmarEmail"
-            required
             placeholder="Confirmar e-mail"
             value={confirmEmail}
+            required
             onChange={(e) => {
               setConfirmEmail(e.target.value);
             }}
@@ -121,21 +165,22 @@ const Register: React.FC = () => {
           <Input
             type="password"
             id="password"
-            required
             placeholder="Sua senha"
             value={password}
+            required
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
 
-          <PasswordMeter $isWeak={!isPasswordStrong} />
+          {password && <PasswordMeter $isWeak={!isPasswordStrong} />}
 
           <Input
             type="password"
             id="confirmPassword"
             placeholder="Confirmar senha"
             value={confirmPassword}
+            required
             onChange={(e) => {
               setConfirmPassword(e.target.value);
             }}
@@ -159,8 +204,8 @@ const Register: React.FC = () => {
         </Button>
 
         <LinkLogin>
-          <p>Já tem conta?</p>
-          <a onClick={handleLogin}>Logue-se agora!</a>
+          <p>Já sou cadastrado?</p>
+          <a onClick={handleLogin}>Entrar agora</a>
         </LinkLogin>
       </Form>
     </Container>

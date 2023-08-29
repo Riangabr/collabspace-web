@@ -1,4 +1,4 @@
-import { css, styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 interface AreaEmailProps {
   $areaEmail: boolean;
@@ -27,13 +27,13 @@ export const Form = styled.form`
   padding: 0 1rem;
   display: flex;
   flex-direction: column;
-  margin: 2.5rem 0;
+  margin: 4rem 0;
 
   h1 {
     color: var(--zinc-100);
     font-size: 3rem;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   input[type="date"] {
@@ -84,7 +84,7 @@ export const Input = styled.input`
 
 export const AreaEmail = styled(Group)<AreaEmailProps>`
   max-height: 150px;
-  transition: 0s.3s ease;
+  transition: 0.3s ease;
   overflow: hidden;
 
   ${({ $areaEmail }) =>
@@ -95,28 +95,28 @@ export const AreaEmail = styled(Group)<AreaEmailProps>`
 `;
 
 export const AreaPassword = styled(Group)<AreaPasswordProps>`
-  max-height: 160px;
-  transition: 0s.3s ease;
+  max-height: 170px;
+  transition: 0.3s ease;
   overflow: hidden;
 
   ${({ $areaPassword }) =>
     $areaPassword &&
     css`
       max-height: 0;
-    `}
+    `};
 `;
 
 export const PasswordMeter = styled.div<PasswordMeterProps>`
   height: 2px;
-  border-radius: 99999px;
+  border-radius: 9999px;
   font-size: 0.75rem;
   text-align: ${({ $isWeak }) => ($isWeak ? "left" : "right")};
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 
   background: var(--zinc-300);
 
   &::after {
-    content: "Senha Fraca";
+    content: "Senha fraca";
     display: block;
     padding-top: 2px;
     color: var(--zinc-300);
@@ -128,7 +128,7 @@ export const PasswordMeter = styled.div<PasswordMeterProps>`
       background: var(--emerald-600);
 
       &::after {
-        content: "Senha Forte";
+        content: "Senha forte";
         display: block;
         padding-top: 2px;
         color: var(--emerald-600);
@@ -165,8 +165,6 @@ export const LinkLogin = styled.div`
   font-size: 0.875rem;
   text-align: center;
 
-  cursor: pointer;
-
   p {
     color: var(--zinc-400);
   }
@@ -174,8 +172,11 @@ export const LinkLogin = styled.div`
   a {
     color: var(--emerald-500);
     transition: all 0.15s;
-  }
-  &:hover {
-    color: var(--emerald-600);
+
+    cursor: pointer;
+
+    &:hover {
+      color: var(--emerald-600);
+    }
   }
 `;

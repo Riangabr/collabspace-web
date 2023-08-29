@@ -40,13 +40,13 @@ export const EditCoverButton = styled.button`
   outline: 0;
   background: var(--zinc-200);
   color: var(--emerald-600);
-  transition: ease 0.25s;
+  transition: ease 0.15s;
 
   cursor: pointer;
 
   &:hover {
-    background: var(--emerald-600);
-    color: var(--zinc-200);
+    background: var(--zinc-300);
+    color: var(--emerald-600);
   }
 `;
 
@@ -93,7 +93,7 @@ export const General = styled.div`
   flex: 0.7;
 
   h1 {
-    color: var(--zinc-200);
+    color: var(--zinc-100);
     font-size: 1.5rem;
     font-weight: 500;
   }
@@ -108,7 +108,8 @@ export const General = styled.div`
 
 export const Total = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+  margin-top: 1.5rem;
 
   span {
     color: var(--zinc-300);
@@ -154,7 +155,7 @@ export const FriendList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, auto);
-  gap: 2rem;
+  gap: 1.5rem;
 
   margin: 2rem 0;
 `;
@@ -167,8 +168,8 @@ export const AreaFriendButton = styled.div`
   button {
     height: 40px;
     padding: 0 1rem;
-    border: 1px solid var(--zinc-500);
     outline: 0;
+    border: 1px solid var(--zinc-700);
     border-radius: 8px;
     font-weight: 500;
     color: var(--zinc-300);
@@ -184,7 +185,9 @@ export const AreaFriendButton = styled.div`
   }
 `;
 
-export const SideBar = styled.aside``;
+export const Sidebar = styled.aside`
+  width: 25%;
+`;
 
 export const Requests = styled.div`
   height: 32rem;

@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogo = () => {
-    navigate("feed/");
+    navigate("/feed");
   };
 
   return (

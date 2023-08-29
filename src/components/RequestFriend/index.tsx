@@ -4,8 +4,8 @@ import AvatarCircle from "../AvatarCircle";
 
 import {
   Container,
-  Info,
   User,
+  Info,
   Actions,
   ButtonAccept,
   ButtonRecuse,
@@ -15,19 +15,21 @@ const RequestFriend: React.FC = () => {
   return (
     <Container>
       <User>
-        <AvatarCircle src="https://i.pinimg.com/originals/e4/34/2a/e4342a4e0e968344b75cf50cf1936c09.jpg"></AvatarCircle>
+        <AvatarCircle src="https://images.generated.photos/rRsRe7d3ekuoklEhgFeJ0mlCEMsuw7je_Wzzmlo_9UM/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MjUzMzMyLmpwZw.jpg" />
+
         <Info>
-          <h1>Alfa</h1>
-          <p>SuperAlfa@gmail.com</p>
+          <h1>Marta Ribeiro</h1>
+          <p>martaribeiro@hotmaadsasdasdasdil.com</p>
         </Info>
       </User>
+
       <Actions>
         <ButtonAccept>
-          <Check />
+          <Check size={18} />
         </ButtonAccept>
 
         <ButtonRecuse>
-          <X />
+          <X size={18} />
         </ButtonRecuse>
       </Actions>
     </Container>

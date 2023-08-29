@@ -1,14 +1,14 @@
-import AvatarCircle from "../../components/AvatarCircle";
-
 import LayoutDefault from "../../layouts/Default";
 
+import AvatarCircle from "../../components/AvatarCircle";
 import RequestFriend from "../../components/RequestFriend";
-
 import FriendCard from "../../components/FriendCard";
 
 import { Camera, PencilSimple, MapPin, Phone, Clock } from "phosphor-react";
 
 import {
+  Container,
+  Content,
   Overview,
   UserBanner,
   Cover,
@@ -16,15 +16,13 @@ import {
   UserInfo,
   EditInfoButton,
   General,
-  Contact,
   Total,
+  Contact,
   Friends,
   FriendList,
   AreaFriendButton,
-  SideBar,
+  Sidebar,
   Requests,
-  Content,
-  Container,
   RequestList,
 } from "./styles";
 
@@ -36,8 +34,9 @@ const Profile: React.FC = () => {
           <Overview>
             <UserBanner>
               <EditCoverButton>
-                <Camera size={24} weight="fill" />
+                <Camera size={22} weight="fill" />
               </EditCoverButton>
+
               <Cover src="https://cutewallpaper.org/29/dual-screen-mr-robot-wallpaper/247286624.jpg" />
 
               <div>
@@ -54,10 +53,10 @@ const Profile: React.FC = () => {
 
             <UserInfo>
               <General>
-                <h1>Rian Gabriel</h1>
+                <h1>Natan Foleto</h1>
                 <p>
-                  Você só vai me olhar, me julgar tirar, conclusões
-                  precipitadas, mas ainda... assim não vai me conhecer.
+                  Você só vai me olhar, me julgar, tirar conclusões
+                  precipitadas, mas ainda… assim não vai me conhecer.
                 </p>
 
                 <Total>
@@ -78,7 +77,7 @@ const Profile: React.FC = () => {
 
                 <span>
                   <Phone size={20} weight="bold" />
-                  (17) 98154-9528
+                  (17) 99242-4418
                 </span>
 
                 <span>
@@ -106,12 +105,14 @@ const Profile: React.FC = () => {
               <FriendCard />
               <FriendCard />
             </FriendList>
+
             <AreaFriendButton>
               <button>Ver todos os amigos</button>
             </AreaFriendButton>
           </Friends>
         </Content>
-        <SideBar>
+
+        <Sidebar>
           <Requests>
             <h1>Solicitações de amizade</h1>
 
@@ -120,9 +121,10 @@ const Profile: React.FC = () => {
               <RequestFriend />
               <RequestFriend />
               <RequestFriend />
+              <RequestFriend />
             </RequestList>
           </Requests>
-        </SideBar>
+        </Sidebar>
       </Container>
     </LayoutDefault>
   );

@@ -2,8 +2,9 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  gap: 1rem;
+  align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 `;
 
 export const User = styled.div`
