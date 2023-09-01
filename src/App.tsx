@@ -13,7 +13,11 @@ function App() {
     <AuthenticationProvider>
       <BrowserRouter>
         <AppRoutes />
-        <ToastContainer theme="dark" autoClose={3000} />
+        <ToastContainer
+          theme="dark"
+          autoClose={3000}
+          toastStyle={{ background: "#111c50" }}
+        />
       </BrowserRouter>
     </AuthenticationProvider>
   );

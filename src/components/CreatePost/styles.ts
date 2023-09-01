@@ -2,8 +2,6 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: end;
   gap: 1.5rem;
 
   background: var(--zinc-800);
@@ -11,8 +9,10 @@ export const Container = styled.div`
   padding: 2rem;
 `;
 
-export const Content = styled.div`
+export const Form = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: end;
   gap: 1rem;
 `;

@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { createUser } from "../../services/users";
 import { useAuthentication } from "../../contexts/Authentication";
 
+import { Spiner } from "../../assets/sources";
+
 import {
   Container,
   Form,
@@ -30,6 +32,7 @@ const Register: React.FC = () => {
   const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const areaEmail = !name || !birthDate;
   const areaPassword = !email || !confirmEmail || areaEmail;
@@ -49,6 +52,7 @@ const Register: React.FC = () => {
     async (e: FormEvent) => {
       e.preventDefault();
 
+      setLoading(true);
       try {
         const { result, message, data } = await createUser({
           name,
@@ -63,14 +67,19 @@ const Register: React.FC = () => {
 
         if (result === "success") {
           if (data) {
-            handleLoggedEmail(data.email);
             toast.success(message);
+            handleLoggedEmail(data.email);
             handleLogin();
           }
         }
 
         if (result === "error") toast.error(message);
-      } catch (error) {}
+
+        setLoading(false);
+      } catch (error: any) {
+        toast.error(error.message);
+        setLoading(false);
+      }
     },
     [
       birthDate,
@@ -200,7 +209,7 @@ const Register: React.FC = () => {
             !isPasswordStrong
           }
         >
-          Cadastrar
+          {loading ? <Spiner /> : "Cadastrar"}
         </Button>
 
         <LinkLogin>

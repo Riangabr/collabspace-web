@@ -30,7 +30,7 @@ const LogoRocket = ({ ...rest }) => (
   </svg>
 );
 
-const SpinerLogin = ({ ...rest }) => (
+const Spiner = ({ ...rest }) => (
   <svg
     width="24"
     height="24"
@@ -66,4 +66,4 @@ const SpinerLogin = ({ ...rest }) => (
   </svg>
 );
 
-export { LogoRocket, SpinerLogin };
+export { LogoRocket, Spiner };

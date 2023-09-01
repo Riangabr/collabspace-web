@@ -11,30 +11,37 @@ import {
 } from "./styles";
 
 import AvatarSquare from "../AvatarSquare";
+import { useAuthentication } from "../../contexts/Authentication";
 
 const ProfileCard: React.FC = () => {
+  const { user } = useAuthentication();
+
   const navigate = useNavigate();
 
   const handleMe = () => {
-    navigate("/me");
+    if (user) navigate(`/me/${user?.id}`);
   };
 
   return (
     <Container>
       <Header>
-        <Cover src="https://cutewallpaper.org/29/dual-screen-mr-robot-wallpaper/247286624.jpg" />
+        <Cover
+          src={
+            "https://cutewallpaper.org/29/dual-screen-mr-robot-wallpaper/247286624.jpg"
+          }
+        />
 
         <div onClick={handleMe}>
           <AvatarSquare
-            src="https://i.pinimg.com/736x/b7/65/02/b76502e936cd209b595bd7a537e74db4.jpg"
+            src={user?.avatarUrl || "https://i.imgur.com/HYrZqHy.jpgg"}
             borderEffect
           />
         </div>
       </Header>
 
       <Content>
-        <h1 onClick={handleMe}>Natan Foleto</h1>
-        <p>natanfoleto@hotmail.com</p>
+        <h1 onClick={handleMe}>{user?.name}</h1>
+        <p>{user?.email}</p>
       </Content>
 
       <Divider />
