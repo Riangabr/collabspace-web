@@ -1,6 +1,10 @@
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import moment from "moment";
+
+import { IUser } from "../../services/users/types";
+import { listUserById } from "../../services/users";
 
 import LayoutDefault from "../../layouts/Default";
 
@@ -29,15 +33,12 @@ import {
   Requests,
   RequestList,
 } from "./styles";
-import { listUserById } from "../../services/users";
-import { IUser } from "../../services/users/types";
-import { toast } from "react-toastify";
 import { useAuthentication } from "../../contexts/Authentication";
 
 moment.defineLocale("pt-br", {
   weekdays: "Segunda_Terça_Quarta_Quinta_Sexta_Sábado_Domingo".split("_"),
-  mouths:
-    " Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro".split(
+  months:
+    "Janeiro_Fereveiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro".split(
       "_",
     ),
 });
@@ -56,19 +57,18 @@ const Profile: React.FC = () => {
         if (result === "success") {
           if (data) setUser(data.user);
         }
+
         if (result === "error") toast.error(message);
       }
     } catch (error: any) {
-      toast.error(error as string);
+      toast.error(error.message);
     }
   }, [id]);
 
   useEffect(() => {
     handleListUserById();
   }, [id, handleListUserById]);
-  const handleSingOut = () => {
-    signOut();
-  };
+
   return (
     <LayoutDefault>
       <Container>
@@ -79,7 +79,7 @@ const Profile: React.FC = () => {
                 <Camera size={22} weight="fill" />
               </EditCoverButton>
 
-              <Cover src="https://i.imgur.com/gH2QLjf.png" />
+              <Cover src={"https://i.imgur.com/gH2QLjf.png"} />
 
               <div>
                 <AvatarCircle
@@ -120,15 +120,13 @@ const Profile: React.FC = () => {
                 {user?.telephone && (
                   <span>
                     <Phone size={20} weight="bold" />
-                    {user?.telephone}
+                    {user.telephone}
                   </span>
                 )}
 
                 <span>
                   <Clock size={20} weight="bold" />
-                  {moment(user?.createdAt).format(
-                    "[Entrou em] MMMM dddd [de] YYYY",
-                  )}
+                  {moment(user?.createdAt).format("[Entrou em] MMMM [de] YYYY")}
                 </span>
               </Contact>
             </UserInfo>
@@ -171,7 +169,7 @@ const Profile: React.FC = () => {
             </RequestList>
           </Requests>
 
-          <a style={{ color: "white", marginTop: "16px" }} onClick={signOut}>
+          <a style={{ color: "white" }} onClick={signOut}>
             Sair
           </a>
         </Sidebar>

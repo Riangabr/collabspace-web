@@ -1,8 +1,12 @@
-import { AppResponse } from "../../services/Api/types";
+import { AppResponse } from "../../Api/types";
+
+import { IComment } from "../../comments/types";
+import { IReaction } from "../../reactions/types";
 
 interface IUserPost {
   id: string;
   name: string;
+  email: string;
   avatarUrl: string | null;
 }
 
@@ -13,23 +17,18 @@ interface IPost {
   visibility: 1 | 2 | 3;
   publishedAt: string;
   user: IUserPost;
-  comments: any[];
-  reactions: any[];
+  comments: IComment[];
+  reactions: IReaction[];
 }
 
 interface ICreatePostRequest {
   content: string;
   tags?: string;
-  visibility?: number;
+  visibility?: 1 | 2 | 3;
 }
 
 interface ICreatePostResponse extends AppResponse {
-  data?: {
-    id: string;
-    userId: string;
-    tags: string;
-    visibility: 1 | 2 | 3;
-  };
+  data?: IPost;
 }
 
 interface IListAllPostsResponse extends AppResponse {

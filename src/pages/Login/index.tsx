@@ -31,6 +31,7 @@ const Login: React.FC = () => {
     event.preventDefault();
 
     const { result, message } = await signIn({ email, password });
+
     if (result === "success") toast.success(message);
     if (result === "error") toast.error(message);
   };
@@ -70,7 +71,7 @@ const Login: React.FC = () => {
           />
         </Group>
 
-        <Button>{loading ? <Spiner /> : "Fazer Login"}</Button>
+        <Button>{loading ? <Spiner /> : "Fazer login"}</Button>
 
         <LinkRegister>
           <p>Novo no Collabspace?</p>

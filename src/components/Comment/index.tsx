@@ -1,28 +1,68 @@
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
+
 import { Trash } from "phosphor-react";
 
 import Avatar from "../AvatarSquare";
 
+import { DiffToString } from "../../utils/date";
+
+import { useAuthentication } from "../../contexts/Authentication";
+
 import { Container, CommentBox, AuthorAndTime, ButtonDelete } from "./styles";
 
-const Comment: React.FC = () => {
+interface CommentProps {
+  postAuthorId: string;
+  authorId: string;
+  authorAvatar: string | null;
+  authorName: string;
+  commentId: string;
+  content: string;
+  reactions: any[];
+  commentedAt: string;
+  onDelete(id: string): void;
+}
+
+const Comment: React.FC<CommentProps> = ({
+  postAuthorId,
+  authorId,
+  authorAvatar,
+  authorName,
+  commentId,
+  content,
+  reactions = [],
+  commentedAt,
+  onDelete,
+}) => {
+  const navigate = useNavigate();
+  const { user } = useAuthentication();
+
+  function handleMe() {
+    navigate(`/me/${authorId}`);
+  }
+
   return (
     <Container>
-      <Avatar src="https://media.fstatic.com/DH5yngg4vQQdK9csLNLAzsPJ9N8=/full-fit-in/290x478/filters:format(webp)/media/artists/avatar/2022/12/naldo-benny_a305866.jpg" />
+      <Avatar
+        onClick={handleMe}
+        src={authorAvatar || "https://i.imgur.com/HYrZqHy.jpg"}
+      />
 
       <CommentBox>
         <AuthorAndTime>
-          <h1>Naldo Beny</h1>
-          <time>Cerca de 2h</time>
+          <h1 onClick={handleMe}>{authorName}</h1>
+          <time>
+            Cerca de {DiffToString(moment().diff(commentedAt, "seconds"))}
+          </time>
 
-          <ButtonDelete>
-            <Trash size={22} />
-          </ButtonDelete>
+          {(user && user.id === authorId) || user?.id === postAuthorId ? (
+            <ButtonDelete onClick={() => onDelete(commentId)}>
+              <Trash size={22} />
+            </ButtonDelete>
+          ) : null}
         </AuthorAndTime>
 
-        <p>
-          Ai Ney, ta ligado que o LeBroun ficou impressionado com a cor do meu
-          tênis la em Miami 😎
-        </p>
+        <p>{content}</p>
       </CommentBox>
     </Container>
   );

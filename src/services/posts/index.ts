@@ -1,4 +1,5 @@
-import api from "../services/Api/api";
+import api from "../Api/api";
+
 import {
   ICreatePostRequest,
   ICreatePostResponse,
@@ -19,7 +20,7 @@ const createPost = async ({
     .then((res) => res)
     .catch((err) => err);
 
-  return response;
+  return response.data;
 };
 
 const listAllPosts = async (
@@ -27,7 +28,7 @@ const listAllPosts = async (
   limit = 10,
 ): Promise<IListAllPostsResponse> => {
   const response = await api
-    .get(`/posts?page=${page} limit=${limit}`)
+    .get(`/posts?page=${page}&limit=${limit}`)
     .then((res) => res)
     .catch((err) => err);
 

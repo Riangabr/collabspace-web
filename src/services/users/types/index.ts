@@ -4,7 +4,7 @@ interface IUser {
   id: string;
   name: string;
   email: string;
-  telephone?: string;
+  telephone: string | null;
   birthDate: string;
   avatarUrl: string | null;
   createdAt: string;

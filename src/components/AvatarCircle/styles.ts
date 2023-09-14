@@ -10,4 +10,6 @@ export const Container = styled.img<ContainerProps>`
   display: block;
   object-fit: cover;
   border-radius: 100%;
+
+  cursor: pointer;
 `;

@@ -25,8 +25,15 @@ export const AuthorAndTime = styled.div`
   flex-direction: column;
 
   h1 {
+    max-width: max-content;
     font-size: 0.875rem;
     color: var(--zinc-200);
+
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   time {

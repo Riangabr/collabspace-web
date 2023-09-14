@@ -56,6 +56,7 @@ export const Cover = styled.img`
   height: 192px;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
+  background: var(--zinc-700);
 `;
 
 export const EditInfoButton = styled.button`

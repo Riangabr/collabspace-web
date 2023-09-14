@@ -32,6 +32,7 @@ const Register: React.FC = () => {
   const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const areaEmail = !name || !birthDate;
@@ -44,6 +45,7 @@ const Register: React.FC = () => {
   const isPasswordStrong = password.match(
     /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
   );
+
   const handleLogin = useCallback(() => {
     navigate("/");
   }, [navigate]);
@@ -53,6 +55,7 @@ const Register: React.FC = () => {
       e.preventDefault();
 
       setLoading(true);
+
       try {
         const { result, message, data } = await createUser({
           name,
@@ -63,11 +66,10 @@ const Register: React.FC = () => {
           birthDate,
         });
 
-        console.log(data);
-
         if (result === "success") {
           if (data) {
             toast.success(message);
+
             handleLoggedEmail(data.email);
             handleLogin();
           }
