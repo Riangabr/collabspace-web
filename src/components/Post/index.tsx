@@ -1,5 +1,4 @@
 import { useState, useCallback, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import { ThumbsUp, ChatCircleText } from "phosphor-react";
 import { toast } from "react-toastify";
 import moment from "moment";
@@ -17,6 +16,8 @@ import AvatarSquare from "../AvatarSquare";
 import Comment from "../Comment";
 import InputArea from "../InputArea";
 import Button from "../Button";
+import Modal from "../Modal";
+import ReactionList from "../ReactionList";
 
 import {
   Container,
@@ -63,8 +64,7 @@ const Post: React.FC<PostProps> = ({
   reactions = [],
   publishedAt,
 }) => {
-  const navigate = useNavigate();
-  const { user } = useAuthentication();
+  const { user, me } = useAuthentication();
 
   const [postComments, setPostComments] = useState(comments);
   const [postReactions, setPostReactions] = useState(reactions);
@@ -75,6 +75,8 @@ const Post: React.FC<PostProps> = ({
   const [userReacted, setUserReacted] = useState(
     postReactions.some((reaction) => reaction.user.id === user?.id),
   );
+
+  const [modalReactions, setModalReactions] = useState(false);
 
   const handleCreateComment = useCallback(
     async (e: FormEvent) => {
@@ -189,8 +191,8 @@ const Post: React.FC<PostProps> = ({
     setCommentArea(!commentArea);
   }
 
-  function handleMe() {
-    navigate(`/me/${authorId}`);
+  function toggleModalReactions() {
+    setModalReactions(!modalReactions);
   }
 
   return (
@@ -198,13 +200,13 @@ const Post: React.FC<PostProps> = ({
       <Header>
         <Author>
           <AvatarSquare
-            onClick={handleMe}
-            src={authorAvatar || "https://i.imgur.com/HYrZqHy.jpg"}
+            onClick={() => me(user?.id)}
+            avatar={authorAvatar}
             borderEffect
           />
 
           <AuthorInfo>
-            <h1 onClick={handleMe}>{authorName}</h1>
+            <h1 onClick={() => me(user?.id)}>{authorName}</h1>
             <p>{authorEmail}</p>
           </AuthorInfo>
         </Author>
@@ -226,7 +228,7 @@ const Post: React.FC<PostProps> = ({
 
       <Interactions>
         <InteractionInfo>
-          <CountReaction>
+          <CountReaction onClick={toggleModalReactions}>
             <span>
               <ThumbsUp size={19} weight={userReacted ? "fill" : "bold"} />
 
@@ -289,6 +291,10 @@ const Post: React.FC<PostProps> = ({
           ))}
         </Comments>
       </CommentArea>
+
+      <Modal isOpen={modalReactions} onClose={toggleModalReactions}>
+        <ReactionList data={postReactions} />
+      </Modal>
     </Container>
   );
 };

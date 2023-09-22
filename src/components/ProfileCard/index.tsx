@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import { useAuthentication } from "../../contexts/Authentication";
 
 import {
@@ -15,29 +13,20 @@ import {
 import AvatarSquare from "../AvatarSquare";
 
 const ProfileCard: React.FC = () => {
-  const { user } = useAuthentication();
-
-  const navigate = useNavigate();
-
-  const handleMe = () => {
-    if (user) navigate(`/me/${user.id}`);
-  };
+  const { user, me } = useAuthentication();
 
   return (
     <Container>
       <Header>
         <Cover src={"https://i.imgur.com/gH2QLjf.png"} />
 
-        <div onClick={handleMe}>
-          <AvatarSquare
-            src={user?.avatarUrl || "https://i.imgur.com/HYrZqHy.jpg"}
-            borderEffect
-          />
+        <div onClick={() => me(user?.id)}>
+          <AvatarSquare avatar={user?.avatarUrl} borderEffect />
         </div>
       </Header>
 
       <Content>
-        <h1 onClick={handleMe}>{user?.name}</h1>
+        <h1 onClick={() => me(user?.id)}>{user?.name}</h1>
         <p>{user?.email}</p>
       </Content>
 

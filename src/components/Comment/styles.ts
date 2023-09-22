@@ -13,7 +13,6 @@ export const CommentBox = styled.div`
 `;
 
 export const InputArea = styled.div`
-  width: 100%;
   background: var(--zinc-900);
   border-radius: 8px;
   padding: 1rem 1rem 1.5rem 1rem;
@@ -55,9 +54,11 @@ export const Interactions = styled.div`
   gap: 8px;
   padding: 0 8px;
 
-  font-size: 0.875rem;
   color: var(--zinc-400);
+  font-size: 0.875rem;
+
   svg {
+    margin-bottom: 2px;
     color: var(--emerald-600);
     cursor: pointer;
   }
@@ -65,7 +66,7 @@ export const Interactions = styled.div`
   span {
     cursor: pointer;
 
-    :hover {
+    &:hover {
       text-decoration: underline;
     }
   }

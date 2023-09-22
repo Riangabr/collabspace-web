@@ -10,8 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <AuthenticationProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthenticationProvider>
         <AppRoutes />
 
         <ToastContainer
@@ -19,8 +19,8 @@ function App() {
           autoClose={3000}
           toastStyle={{ background: "#262626" }}
         />
-      </BrowserRouter>
-    </AuthenticationProvider>
+      </AuthenticationProvider>
+    </BrowserRouter>
   );
 }
 

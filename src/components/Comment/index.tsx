@@ -1,9 +1,13 @@
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+
 import moment from "moment";
-import { toast } from "react-toastify";
 
 import { Trash, ThumbsUp } from "phosphor-react";
+
+import { createReaction, deleteReaction } from "../../services/reactions";
+import { IReaction } from "../../services/reactions/types";
+import Modal from "../Modal";
+import ReactionList from "../ReactionList";
 
 import Avatar from "../AvatarSquare";
 
@@ -19,8 +23,8 @@ import {
   Interactions,
   ButtonDelete,
 } from "./styles";
-import { IReaction } from "../../services/reactions/types";
-import { createReaction, deleteReaction } from "../../services/reactions";
+
+import { toast } from "react-toastify";
 
 interface CommentProps {
   postAuthorId: string;
@@ -45,14 +49,15 @@ const Comment: React.FC<CommentProps> = ({
   commentedAt,
   onDelete,
 }) => {
-  const navigate = useNavigate();
-  const { user } = useAuthentication();
+  const { user, me } = useAuthentication();
 
-  const [commentReactions, setCommentsReactions] = useState(reactions);
+  const [commentReactions, setCommentReactions] = useState(reactions);
 
-  const [UserReacted, setUserReacted] = useState(
+  const [userReacted, setUserReacted] = useState(
     commentReactions.some((reaction) => reaction.user.id === user?.id),
   );
+
+  const [modalReactions, setModalReactions] = useState(false);
 
   const handleCreateReaction = useCallback(async () => {
     try {
@@ -61,9 +66,9 @@ const Comment: React.FC<CommentProps> = ({
         entityType: 1,
       });
 
-      if (result === "success")
+      if (result === "success") {
         if (data) {
-          setCommentsReactions((prevState) => {
+          setCommentReactions((prevState) => {
             const commentReactions = [...prevState];
 
             commentReactions.unshift(data);
@@ -73,8 +78,9 @@ const Comment: React.FC<CommentProps> = ({
 
           setUserReacted(true);
         }
+      }
     } catch (error: any) {
-      toast.error(error);
+      toast.error(error.message);
     }
   }, [commentId]);
 
@@ -85,43 +91,43 @@ const Comment: React.FC<CommentProps> = ({
       });
 
       if (result === "success") {
-        setCommentsReactions((prevState) =>
+        setCommentReactions((prevState) =>
           prevState.filter((reaction) => reaction.id !== reactionId),
         );
 
         setUserReacted(false);
       }
     } catch (error: any) {
-      toast.error(error);
+      toast.error(error.message);
     }
   }, []);
 
-  function toogleReaction() {
-    if (UserReacted) {
+  function toggleReaction() {
+    if (userReacted) {
       const reaction = commentReactions.find(
         (reaction) => reaction.user.id === user?.id,
       );
 
       if (reaction) handleDeleteReaction(reaction.id);
+
+      return;
     }
 
     handleCreateReaction();
   }
 
-  function handleMe() {
-    navigate(`/me/${authorId}`);
+  function toggleModalReactions() {
+    setModalReactions(!modalReactions);
   }
 
   return (
     <Container>
-      <Avatar
-        onClick={handleMe}
-        src={authorAvatar || "https://i.imgur.com/HYrZqHy.jpg"}
-      />
+      <Avatar onClick={() => me(user?.id)} avatar={authorAvatar} />
+
       <CommentBox>
         <InputArea>
           <AuthorAndTime>
-            <h1 onClick={handleMe}>{authorName}</h1>
+            <h1 onClick={() => me(user?.id)}>{authorName}</h1>
             <time>
               Cerca de {DiffToString(moment().diff(commentedAt, "seconds"))}
             </time>
@@ -138,14 +144,18 @@ const Comment: React.FC<CommentProps> = ({
 
         <Interactions>
           <ThumbsUp
-            onClick={toogleReaction}
+            onClick={toggleReaction}
             size={18}
-            weight={UserReacted ? "fill" : "regular"}
+            weight={userReacted ? "fill" : "regular"}
           />
           <span>•</span>
-          <span>{commentReactions.length}</span>
+          <span onClick={toggleModalReactions}>{commentReactions.length}</span>
         </Interactions>
       </CommentBox>
+
+      <Modal isOpen={modalReactions} onClose={toggleModalReactions}>
+        <ReactionList data={commentReactions} />
+      </Modal>
     </Container>
   );
 };

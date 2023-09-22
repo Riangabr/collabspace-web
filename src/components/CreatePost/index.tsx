@@ -1,5 +1,4 @@
 import { useState, useCallback, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { useAuthentication } from "../../contexts/Authentication";
@@ -18,8 +17,7 @@ interface CreatePostProps {
 }
 
 const CreatePost: React.FC<CreatePostProps> = ({ onCreatePost }) => {
-  const navigate = useNavigate();
-  const { user } = useAuthentication();
+  const { user, me } = useAuthentication();
 
   const [content, setContent] = useState<string>("");
 
@@ -46,15 +44,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ onCreatePost }) => {
     [content, onCreatePost],
   );
 
-  const handleMe = () => {
-    if (user) navigate(`/me/${user.id}`);
-  };
-
   return (
     <Container>
       <Avatar
-        onClick={handleMe}
-        src={user?.avatarUrl || "https://i.imgur.com/HYrZqHy.jpg"}
+        onClick={() => me(user?.id)}
+        avatar={user?.avatarUrl}
         borderEffect
       />
 

@@ -40,10 +40,18 @@ interface IListUserByIdResponse extends AppResponse {
   };
 }
 
+interface IUpdateAvatarRequest {
+  avatarUrl: string;
+}
+
+type IUpdateAvatarResponse = AppResponse;
+
 export type {
   IUser,
   ICreateUserRequest,
   ICreateUserResponse,
   IListUserByIdRequest,
   IListUserByIdResponse,
+  IUpdateAvatarResponse,
+  IUpdateAvatarRequest,
 };
