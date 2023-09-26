@@ -211,7 +211,7 @@ export const RequestList = styled.div`
   margin-top: 1rem;
 `;
 
-export const FormEditAvatar = styled.div`
+export const FormEdit = styled.form`
   height: 100%;
   padding: 2rem 4rem;
   display: flex;
@@ -220,7 +220,7 @@ export const FormEditAvatar = styled.div`
   gap: 8px;
 `;
 
-export const InputEditAvatar = styled.input`
+export const InputEdit = styled.input`
   width: 100%;
   height: 48px;
   background: var(--zinc-700);
@@ -236,7 +236,7 @@ export const InputEditAvatar = styled.input`
   }
 `;
 
-export const ButtonEditAvatar = styled.button`
+export const ButtonEdit = styled.button`
   height: 48px;
   display: flex;
   align-items: center;

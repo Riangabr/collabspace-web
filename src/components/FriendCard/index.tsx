@@ -7,7 +7,7 @@ const FriendCard: React.FC = () => {
     <Container>
       <AvatarSquare
         size="72px"
-        src="https://www.byrdie.com/thmb/jbHGe-TMbHgP3VmJxuivdNY8aCA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/promo-f479f33fd9304b3997cc0f7c97c1a245-1aebc5f0ea88447e840db1f8fd67f802.jpg"
+        avatar="https://www.byrdie.com/thmb/jbHGe-TMbHgP3VmJxuivdNY8aCA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/promo-f479f33fd9304b3997cc0f7c97c1a245-1aebc5f0ea88447e840db1f8fd67f802.jpg"
       />
 
       <Info>

@@ -18,7 +18,7 @@ const ProfileCard: React.FC = () => {
   return (
     <Container>
       <Header>
-        <Cover src={"https://i.imgur.com/gH2QLjf.png"} />
+        <Cover src={user?.coverUrl || "https://i.imgur.com/gH2QLjf.png"} />
 
         <div onClick={() => me(user?.id)}>
           <AvatarSquare avatar={user?.avatarUrl} borderEffect />

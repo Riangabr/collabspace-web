@@ -33,6 +33,7 @@ interface AuthenticationContextType {
   loggedEmail: string;
   handleLoggedEmail: (email: string) => void;
   handleAvatarUrl: (avatarUrl: string) => void;
+  handleCoverUrl: (coverUrl: string) => void;
   signIn(data: SignInRequest): Promise<SignInResponse>;
   signOut(): void;
   me(id?: string): void;
@@ -67,6 +68,16 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
       setUser((prevState) => ({
         ...prevState,
         avatarUrl,
+      }));
+    },
+    [setUser],
+  );
+
+  const handleCoverUrl = useCallback(
+    (coverUrl: string) => {
+      setUser((prevState) => ({
+        ...prevState,
+        coverUrl,
       }));
     },
     [setUser],
@@ -121,6 +132,7 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         signOut,
         me,
         handleAvatarUrl,
+        handleCoverUrl,
       }}
     >
       {children}

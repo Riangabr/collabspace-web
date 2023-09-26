@@ -7,6 +7,8 @@ import {
   IListUserByIdResponse,
   IUpdateAvatarRequest,
   IUpdateAvatarResponse,
+  IUpdateCoverRequest,
+  IUpdateCoverResponse,
 } from "./types";
 
 const createUser = async ({
@@ -56,4 +58,15 @@ const updateAvatar = async ({
   return response.data;
 };
 
-export { createUser, listUserById, updateAvatar };
+const updateCover = async ({
+  coverUrl,
+}: IUpdateCoverRequest): Promise<IUpdateCoverResponse> => {
+  const response = await api
+    .patch("/users/updateCover", { coverUrl })
+    .then((res) => res)
+    .catch((err) => err);
+
+  return response.data;
+};
+
+export { createUser, listUserById, updateAvatar, updateCover };

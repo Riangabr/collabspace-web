@@ -7,6 +7,7 @@ interface User {
   telephone: string | null;
   birthDate: string;
   avatarUrl: string | null;
+  coverUrl: string | null;
   createdAt: string;
 }
 
