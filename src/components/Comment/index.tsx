@@ -1,15 +1,14 @@
 import { useState, useCallback } from "react";
-
 import moment from "moment";
 
 import { Trash, ThumbsUp } from "phosphor-react";
 
 import { createReaction, deleteReaction } from "../../services/reactions";
 import { IReaction } from "../../services/reactions/types";
+
+import AvatarSquare from "../AvatarSquare";
 import Modal from "../Modal";
 import ReactionList from "../ReactionList";
-
-import Avatar from "../AvatarSquare";
 
 import { DiffToString } from "../../utils/date";
 
@@ -122,12 +121,12 @@ const Comment: React.FC<CommentProps> = ({
 
   return (
     <Container>
-      <Avatar onClick={() => me(user?.id)} avatar={authorAvatar} />
+      <AvatarSquare onClick={() => me(authorId)} avatar={authorAvatar} />
 
       <CommentBox>
         <InputArea>
           <AuthorAndTime>
-            <h1 onClick={() => me(user?.id)}>{authorName}</h1>
+            <h1 onClick={() => me(authorId)}>{authorName}</h1>
             <time>
               Cerca de {DiffToString(moment().diff(commentedAt, "seconds"))}
             </time>

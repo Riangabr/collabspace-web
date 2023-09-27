@@ -231,7 +231,7 @@ export const InputEdit = styled.input`
   border: 0;
   outline: 0;
 
-  ::placeholder {
+  &::placeholder {
     color: var(--zinc-400);
   }
 `;
@@ -248,7 +248,7 @@ export const ButtonEdit = styled.button`
   color: var(--white);
   font-weight: 600;
   background: var(--emerald-500);
-  transition: all 0.15;
+  transition: all 0.15s;
 
   cursor: pointer;
 
@@ -256,4 +256,9 @@ export const ButtonEdit = styled.button`
     color: var(--zinc-200);
     background: var(--emerald-600);
   }
+`;
+
+export const PreviewAvatar = styled.img`
+  width: 100%;
+  height: 100%;
 `;

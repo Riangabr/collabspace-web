@@ -8,6 +8,7 @@ interface IUser {
   birthDate: string;
   avatarUrl: string | null;
   coverUrl: string | null;
+  bio: string | null;
   createdAt: string;
 }
 

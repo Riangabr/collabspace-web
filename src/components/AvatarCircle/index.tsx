@@ -3,13 +3,13 @@ import { ImgHTMLAttributes } from "react";
 import { Container } from "./styles";
 
 interface AvatarCircleProps extends ImgHTMLAttributes<HTMLImageElement> {
-  size?: string;
   avatar: string | null | undefined;
+  size?: string;
 }
 
 const AvatarCircle: React.FC<AvatarCircleProps> = ({
-  size = "48px",
   avatar,
+  size = "48px",
   ...rest
 }) => {
   return (

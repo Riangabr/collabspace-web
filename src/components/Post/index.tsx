@@ -200,13 +200,13 @@ const Post: React.FC<PostProps> = ({
       <Header>
         <Author>
           <AvatarSquare
-            onClick={() => me(user?.id)}
+            onClick={() => me(authorId)}
             avatar={authorAvatar}
             borderEffect
           />
 
           <AuthorInfo>
-            <h1 onClick={() => me(user?.id)}>{authorName}</h1>
+            <h1 onClick={() => me(authorId)}>{authorName}</h1>
             <p>{authorEmail}</p>
           </AuthorInfo>
         </Author>

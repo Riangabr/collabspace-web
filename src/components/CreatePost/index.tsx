@@ -6,7 +6,7 @@ import { useAuthentication } from "../../contexts/Authentication";
 import { createPost } from "../../services/posts";
 import { IPost } from "../../services/posts/types";
 
-import Avatar from "../AvatarSquare";
+import AvatarSquare from "../AvatarSquare";
 import InputArea from "../InputArea";
 import Button from "../Button";
 
@@ -46,7 +46,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onCreatePost }) => {
 
   return (
     <Container>
-      <Avatar
+      <AvatarSquare
         onClick={() => me(user?.id)}
         avatar={user?.avatarUrl}
         borderEffect

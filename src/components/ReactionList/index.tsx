@@ -1,5 +1,7 @@
 import AvatarCircle from "../AvatarCircle";
 
+import { useAuthentication } from "../../contexts/Authentication";
+
 import { IReaction } from "../../services/reactions/types";
 
 import {
@@ -11,7 +13,6 @@ import {
   AuthorInfo,
   NoReactions,
 } from "./styles";
-import { useAuthentication } from "../../contexts/Authentication";
 
 interface ReactionListProps {
   data: IReaction[];
@@ -19,6 +20,7 @@ interface ReactionListProps {
 
 const ReactionList: React.FC<ReactionListProps> = ({ data }) => {
   const { me } = useAuthentication();
+
   return (
     <Container>
       <Title>Reações</Title>
@@ -42,7 +44,7 @@ const ReactionList: React.FC<ReactionListProps> = ({ data }) => {
             </Reaction>
           ))
         ) : (
-          <NoReactions> Ninguém reagiu a isto! </NoReactions>
+          <NoReactions>Ninguém reagiu a isto!</NoReactions>
         )}
       </Reactions>
     </Container>

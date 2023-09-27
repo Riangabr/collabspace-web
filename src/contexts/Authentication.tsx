@@ -8,9 +8,9 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import { User } from "../services/Sessions/types";
+import { User } from "../services/sessions/types";
 
-import { session } from "../services/Sessions";
+import { session } from "../services/sessions";
 
 import api from "../services/Api/api";
 import usePersistedState from "../hooks/usePersistedState";
@@ -128,11 +128,11 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         token,
         loggedEmail,
         handleLoggedEmail,
+        handleAvatarUrl,
+        handleCoverUrl,
         signIn,
         signOut,
         me,
-        handleAvatarUrl,
-        handleCoverUrl,
       }}
     >
       {children}

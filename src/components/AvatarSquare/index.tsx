@@ -3,15 +3,15 @@ import { ImgHTMLAttributes } from "react";
 import { Container } from "./styles";
 
 interface AvatarSquareProps extends ImgHTMLAttributes<HTMLImageElement> {
+  avatar: string | null | undefined;
   size?: string;
   borderEffect?: boolean;
-  avatar: string | null | undefined;
 }
 
 const AvatarSquare: React.FC<AvatarSquareProps> = ({
+  avatar,
   size = "56px",
   borderEffect = false,
-  avatar,
   ...rest
 }) => {
   return (

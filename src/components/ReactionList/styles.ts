@@ -21,11 +21,8 @@ export const Navbar = styled.div`
 `;
 
 export const Reactions = styled.div`
-  max-height: 100px;
-  overflow-y: scroll;
-  gap: 1rem;
-
-  padding-bottom: 1rem;
+  height: 100%;
+  overflow-y: auto;
 
   &::-webkit-scrollbar-track {
     background: var(--zinc-900);
