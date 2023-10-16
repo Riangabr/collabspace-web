@@ -1,34 +1,81 @@
 import { Check, X } from "phosphor-react";
-
 import AvatarCircle from "../AvatarCircle";
 
+import { useCallback } from "react";
+import { toast } from "react-toastify";
+import { useAuthentication } from "../../contexts/Authentication";
+import { acceptRequest, recuseRequest } from "../../services/friends";
 import {
-  Container,
-  User,
-  Info,
   Actions,
   ButtonAccept,
   ButtonRecuse,
+  Container,
+  Info,
+  User,
 } from "./styles";
 
-const RequestFriend: React.FC = () => {
+interface RequestFriendProps {
+  id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  userAvatarUrl: string | null;
+  onRemove(): void;
+}
+
+const RequestFriend: React.FC<RequestFriendProps> = ({
+  id,
+  userId,
+  userName,
+  userEmail,
+  userAvatarUrl,
+  onRemove,
+}) => {
+  const { me } = useAuthentication();
+
+  const handleAcceptRequest = useCallback(async () => {
+    try {
+      const { result, message } = await acceptRequest({
+        id,
+      });
+
+      if (result === "success") onRemove();
+      if (result === "error") toast.error(message);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [id, onRemove]);
+
+  const handleRecuseRequest = useCallback(async () => {
+    try {
+      const { result, message } = await recuseRequest({
+        id,
+      });
+
+      if (result === "success") onRemove();
+      if (result === "error") toast.error(message);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [id, onRemove]);
+
   return (
     <Container>
       <User>
-        <AvatarCircle avatar="https://images.generated.photos/rRsRe7d3ekuoklEhgFeJ0mlCEMsuw7je_Wzzmlo_9UM/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MjUzMzMyLmpwZw.jpg" />
+        <AvatarCircle avatar={userAvatarUrl} onClick={() => me(userId)} />
 
-        <Info>
-          <h1>Marta Ribeiro</h1>
-          <p>martaribeiro@hotmaadsasdasdasdil.com</p>
+        <Info onClick={() => me(userId)}>
+          <h1>{userName}</h1>
+          <p>{userEmail}</p>
         </Info>
       </User>
 
       <Actions>
-        <ButtonAccept>
+        <ButtonAccept onClick={handleAcceptRequest}>
           <Check size={18} />
         </ButtonAccept>
 
-        <ButtonRecuse>
+        <ButtonRecuse onClick={handleRecuseRequest}>
           <X size={18} />
         </ButtonRecuse>
       </Actions>

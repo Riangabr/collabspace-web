@@ -1,44 +1,65 @@
-import { useState, useEffect, useCallback, FormEvent } from "react";
+import moment from "moment";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import moment from "moment";
 
-import { IUser } from "../../services/users/types";
+import {
+  acceptRequest,
+  cancelRequest,
+  createFriend,
+  deleteFriend,
+  listAllFriendsByUser,
+  listAllRequestsByUser,
+  recuseRequest,
+} from "../../services/friends";
+import { IFriend, IRequest } from "../../services/friends/types";
 import { listUserById, updateAvatar, updateCover } from "../../services/users";
+import { IUser } from "../../services/users/types";
 
 import LayoutDefault from "../../layouts/Default";
 
 import AvatarCircle from "../../components/AvatarCircle";
-import RequestFriend from "../../components/RequestFriend";
 import FriendCard from "../../components/FriendCard";
 import Modal from "../../components/Modal";
+import RequestFriend from "../../components/RequestFriend";
 
-import { Camera, PencilSimple, MapPin, Phone, Clock } from "phosphor-react";
+import { useAuthentication } from "../../contexts/Authentication";
 
 import {
+  Camera,
+  Clock,
+  MapPin,
+  PencilSimple,
+  Phone,
+  UserCircleMinus,
+  UserCirclePlus,
+} from "phosphor-react";
+
+import {
+  AreaFriendButton,
+  ButtonEdit,
+  Contact,
   Container,
   Content,
-  Overview,
-  UserBanner,
   Cover,
   EditCoverButton,
-  UserInfo,
   EditInfoButton,
-  General,
-  Total,
-  Contact,
-  Friends,
-  FriendList,
-  AreaFriendButton,
-  Sidebar,
-  Requests,
-  RequestList,
   FormEdit,
+  FriendList,
+  Friends,
+  FriendshipArea,
+  FriendshipButton,
+  General,
   InputEdit,
-  ButtonEdit,
+  Overview,
   PreviewAvatar,
+  RequestList,
+  Requests,
+  Sidebar,
+  Total,
+  UserBanner,
+  UserInfo,
 } from "./styles";
-import { useAuthentication } from "../../contexts/Authentication";
 
 moment.defineLocale("pt-br", {
   weekdays: "Segunda_Terça_Quarta_Quinta_Sexta_Sábado_Domingo".split("_"),
@@ -59,7 +80,12 @@ const Profile: React.FC = () => {
   } = useAuthentication();
 
   const [user, setUser] = useState<IUser | null>(null);
+  const [friends, setFriends] = useState<IFriend[]>([]);
+  const [requests, setRequests] = useState<IRequest[]>([]);
+  const [userLoggedRequests, setUserLoggedRequests] = useState<IRequest[]>([]);
 
+  const [relationshipId, setRelationshipId] = useState<string>();
+  const [relationship, setRelationship] = useState(-1);
   const [modalEditAvatar, setModalEditAvatar] = useState(false);
   const [modalEditCover, setModalEditCover] = useState(false);
   const [modalPreviewAvatar, setModalPreviewAvatar] = useState(false);
@@ -81,6 +107,139 @@ const Profile: React.FC = () => {
       toast.error(error.message);
     }
   }, [id]);
+
+  const handleListAllFriendsByUser = useCallback(async () => {
+    try {
+      if (id) {
+        const { result, data, message } = await listAllFriendsByUser({ id });
+
+        if (result === "success") {
+          if (data?.friends) setFriends(data.friends);
+        }
+
+        if (result === "error") toast.error(message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [id]);
+
+  const handleListAllRequestsByUser = useCallback(async () => {
+    try {
+      if (id) {
+        const { result, data, message } = await listAllRequestsByUser({ id });
+
+        if (result === "success") {
+          if (data?.requests) setRequests(data.requests);
+        }
+
+        if (result === "error") toast.error(message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [id]);
+
+  const handleListAllRequestsByUserLogged = useCallback(async () => {
+    try {
+      if (userLogged?.id) {
+        const { result, data, message } = await listAllRequestsByUser({
+          id: userLogged.id,
+        });
+
+        if (result === "success") {
+          if (data?.requests) setUserLoggedRequests(data.requests);
+        }
+
+        if (result === "error") toast.error(message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [userLogged]);
+
+  const handleToggleReationship = useCallback(async () => {
+    try {
+      switch (relationship) {
+        case 1: // Enviar uma solicitação de amizade
+          if (id) {
+            const { result, data, message } = await createFriend({ id });
+
+            if (result === "success") {
+              if (data) {
+                setRelationship(2);
+                setRelationshipId(data.id);
+              }
+            }
+            if (result === "error") toast.error(message);
+          }
+          break;
+        case 2: // Cancelar a solicitação enviada
+          if (relationshipId) {
+            const { result, message } = await cancelRequest({
+              id: relationshipId,
+            });
+
+            if (result === "success") setRelationship(1);
+            if (result === "error") toast.error(message);
+          }
+          break;
+
+        case 3: // Desfazer amizade
+          if (relationshipId) {
+            const { result, message } = await deleteFriend({
+              id: relationshipId,
+            });
+
+            if (result === "success") setRelationship(1);
+            if (result === "error") toast.error(message);
+          }
+          break;
+        case 4: // Aceitar o pedido de amizade
+          if (relationshipId) {
+            const { result, message } = await acceptRequest({
+              id: relationshipId,
+            });
+
+            if (result === "success") setRelationship(3);
+            if (result === "error") toast.error(message);
+
+            if (result === "success") {
+              setRelationship(3);
+            }
+
+            if (result === "error") toast.error(message);
+          }
+          break;
+        default:
+          break;
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [id, relationship, relationshipId]);
+
+  const handleRecuseRequest = useCallback(async () => {
+    try {
+      if (relationshipId) {
+        const { result, message } = await recuseRequest({ id: relationshipId });
+
+        if (result === "success") setRelationship(1);
+        if (result === "error") toast.error(message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [relationshipId]);
+
+  const handleRemoveRequest = useCallback(
+    async (id: string) => {
+      setRequests(requests.filter((request) => request.id !== id));
+
+      handleListAllFriendsByUser();
+    },
+    [requests, handleListAllFriendsByUser],
+  );
 
   const handleUpdateAvatar = useCallback(
     async (e: FormEvent) => {
@@ -139,7 +298,55 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     handleListUserById();
-  }, [id, handleListUserById]);
+    handleListAllFriendsByUser();
+    handleListAllRequestsByUser();
+    handleListAllRequestsByUserLogged();
+  }, [
+    id,
+    relationship,
+    handleListUserById,
+    handleListAllFriendsByUser,
+    handleListAllRequestsByUser,
+    handleListAllRequestsByUserLogged,
+  ]);
+  useEffect(() => {
+    let leave = false;
+    const userLoggedId = userLogged?.id;
+
+    if (userLoggedId) {
+      for (const friend of friends) {
+        if ([friend.user1.id, friend.user2.id].includes(userLoggedId)) {
+          setRelationship(3);
+          setRelationshipId(friend.id);
+          leave = true;
+
+          break;
+        }
+      }
+
+      for (const request of requests) {
+        if (request.user1.id === userLoggedId) {
+          setRelationship(2);
+          setRelationshipId(request.id);
+          leave = true;
+
+          break;
+        }
+      }
+    }
+
+    for (const request of userLoggedRequests) {
+      if (request.user1.id === id) {
+        setRelationship(4);
+        setRelationshipId(request.id);
+        leave = true;
+
+        break;
+      }
+    }
+
+    if (!leave) setRelationship(1);
+  }, [id, userLogged?.id, friends, requests, userLoggedRequests]);
 
   const isOwner = id === userLogged?.id;
 
@@ -193,6 +400,52 @@ const Profile: React.FC = () => {
                     <strong>1562</strong> amigos
                   </span>
                 </Total>
+
+                {/*
+                  1 - Adicionar amigo
+                  2 - Cancelar solicitação
+                  3 - Desfazer amizade
+                  4 - Aceitar pedido | Recusar pedido
+                */}
+
+                {!isOwner && (
+                  <FriendshipArea>
+                    <FriendshipButton
+                      $relationship={relationship}
+                      onClick={handleToggleReationship}
+                    >
+                      {relationship === 1 ? (
+                        <UserCirclePlus size={20} weight="fill" />
+                      ) : relationship === 2 ? (
+                        <UserCircleMinus size={20} weight="fill" />
+                      ) : relationship === 3 ? (
+                        <UserCircleMinus size={20} weight="fill" />
+                      ) : relationship === 4 ? (
+                        <UserCirclePlus size={20} weight="fill" />
+                      ) : null}
+
+                      {relationship === 1
+                        ? "Adicionar amigo"
+                        : relationship === 2
+                        ? "Cancelar solicitação"
+                        : relationship === 3
+                        ? "Desfazer amizade"
+                        : relationship === 4
+                        ? "Aceitar pedido"
+                        : null}
+                    </FriendshipButton>
+
+                    {relationship === 4 && (
+                      <FriendshipButton
+                        $relationship={relationship}
+                        onClick={handleRecuseRequest}
+                      >
+                        <UserCircleMinus size={20} weight="fill" />
+                        Recusar pedido
+                      </FriendshipButton>
+                    )}
+                  </FriendshipArea>
+                )}
               </General>
 
               <Contact>
@@ -220,18 +473,26 @@ const Profile: React.FC = () => {
             <h1>Amigos</h1>
 
             <FriendList>
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
-              <FriendCard />
+              {friends.map((friend) => {
+                let userId = friend.user1.id;
+                let userName = friend.user1.name;
+                let userAvatarUrl = friend.user1.avatarUrl;
+
+                if (friend.user1.id === id) {
+                  userId = friend.user2.id;
+                  userName = friend.user2.name;
+                  userAvatarUrl = friend.user2.avatarUrl;
+                }
+
+                return (
+                  <FriendCard
+                    key={friend.id}
+                    id={userId}
+                    name={userName}
+                    avatarUrl={userAvatarUrl}
+                  />
+                );
+              })}
             </FriendList>
 
             <AreaFriendButton>
@@ -241,17 +502,25 @@ const Profile: React.FC = () => {
         </Content>
 
         <Sidebar>
-          <Requests>
-            <h1>Solicitações de amizade</h1>
+          {isOwner && (
+            <Requests>
+              <h1>Solicitações de amizade</h1>
 
-            <RequestList>
-              <RequestFriend />
-              <RequestFriend />
-              <RequestFriend />
-              <RequestFriend />
-              <RequestFriend />
-            </RequestList>
-          </Requests>
+              <RequestList>
+                {requests.map((request) => (
+                  <RequestFriend
+                    key={request.id}
+                    id={request.id}
+                    userId={request.user1.id}
+                    userName={request.user1.name}
+                    userEmail={request.user1.name}
+                    userAvatarUrl={request.user1.avatarUrl}
+                    onRemove={() => handleRemoveRequest(request.id)}
+                  />
+                ))}
+              </RequestList>
+            </Requests>
+          )}
 
           <a style={{ color: "white" }} onClick={signOut}>
             Sair

@@ -18,4 +18,6 @@ export const Info = styled.div`
     color: var(--zinc-200);
     font-weight: 200;
   }
+
+  cursor: pointer;
 `;
