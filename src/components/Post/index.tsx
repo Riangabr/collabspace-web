@@ -1,42 +1,46 @@
-import { useState, useCallback, FormEvent } from "react";
-import { ThumbsUp, ChatCircleText } from "phosphor-react";
-import { toast } from "react-toastify";
 import moment from "moment";
+import { ChatCircleText, DotsThree, ThumbsUp, Trash } from "phosphor-react";
+import { FormEvent, useCallback, useState } from "react";
+import { toast } from "react-toastify";
 
 import { DiffToString } from "../../utils/date";
 
 import { useAuthentication } from "../../contexts/Authentication";
 
 import { createComment, deleteComment } from "../../services/comments";
-import { createReaction, deleteReaction } from "../../services/reactions";
 import { IComment } from "../../services/comments/types";
+import { createReaction, deleteReaction } from "../../services/reactions";
 import { IReaction } from "../../services/reactions/types";
 
 import AvatarSquare from "../AvatarSquare";
+import Button from "../Button";
 import Comment from "../Comment";
 import InputArea from "../InputArea";
-import Button from "../Button";
 import Modal from "../Modal";
 import ReactionList from "../ReactionList";
 
+import { deletePost } from "../../services/posts";
 import {
-  Container,
-  Header,
   Author,
   AuthorInfo,
-  Content,
-  Description,
-  Hashtags,
-  Divider,
-  Interactions,
-  InteractionInfo,
-  CountReaction,
-  CountComment,
-  InteractionAction,
+  BoxOptions,
   ButtonAction,
   CommentArea,
   CommentForm,
   Comments,
+  Container,
+  Content,
+  CountComment,
+  CountReaction,
+  Description,
+  Divider,
+  Hashtags,
+  Header,
+  InteractionAction,
+  InteractionInfo,
+  Interactions,
+  Option,
+  OptionsArea,
 } from "./styles";
 
 interface PostProps {
@@ -50,6 +54,7 @@ interface PostProps {
   comments: IComment[];
   reactions: IReaction[];
   publishedAt: string;
+  onDeletePost(id: string): void;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -63,6 +68,7 @@ const Post: React.FC<PostProps> = ({
   comments = [],
   reactions = [],
   publishedAt,
+  onDeletePost,
 }) => {
   const { user, me } = useAuthentication();
 
@@ -77,6 +83,23 @@ const Post: React.FC<PostProps> = ({
   );
 
   const [modalReactions, setModalReactions] = useState(false);
+
+  const [boxOptions, setBoxOpition] = useState(false);
+
+  const handleDeletePost = useCallback(async () => {
+    try {
+      const { result, message } = await deletePost({ id: postId });
+
+      if (result === "success") {
+        onDeletePost(postId);
+        toast.success(message);
+      }
+
+      if (result === "error") toast.error(message);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [postId, onDeletePost]);
 
   const handleCreateComment = useCallback(
     async (e: FormEvent) => {
@@ -195,8 +218,25 @@ const Post: React.FC<PostProps> = ({
     setModalReactions(!modalReactions);
   }
 
+  function toggleBoxOptions() {
+    setBoxOpition(!boxOptions);
+  }
+
   return (
     <Container>
+      {authorId === user?.id && (
+        <OptionsArea>
+          <DotsThree size={24} weight="bold" onClick={toggleBoxOptions} />
+
+          <BoxOptions $boxOptions={boxOptions}>
+            <Option onClick={handleDeletePost}>
+              <Trash size={24} weight="fill" />
+              Excluir publicação
+            </Option>
+          </BoxOptions>
+        </OptionsArea>
+      )}
+
       <Header>
         <Author>
           <AvatarSquare
