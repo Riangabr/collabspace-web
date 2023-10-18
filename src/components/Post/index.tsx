@@ -1,6 +1,6 @@
 import moment from "moment";
 import { ChatCircleText, DotsThree, ThumbsUp, Trash } from "phosphor-react";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 import { DiffToString } from "../../utils/date";
@@ -85,6 +85,24 @@ const Post: React.FC<PostProps> = ({
   const [modalReactions, setModalReactions] = useState(false);
 
   const [boxOptions, setBoxOpition] = useState(false);
+
+  const BoxOptionsRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        BoxOptionsRef.current &&
+        !BoxOptionsRef.current.contains(event.target as Node)
+      ) {
+        setBoxOpition(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleDeletePost = useCallback(async () => {
     try {
@@ -228,7 +246,7 @@ const Post: React.FC<PostProps> = ({
         <OptionsArea>
           <DotsThree size={24} weight="bold" onClick={toggleBoxOptions} />
 
-          <BoxOptions $boxOptions={boxOptions}>
+          <BoxOptions ref={BoxOptionsRef} $boxOptions={boxOptions}>
             <Option onClick={handleDeletePost}>
               <Trash size={24} weight="fill" />
               Excluir publicação
