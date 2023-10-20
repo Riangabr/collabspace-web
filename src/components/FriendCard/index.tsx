@@ -1,4 +1,5 @@
 import { useAuthentication } from "../../contexts/Authentication";
+
 import AvatarSquare from "../AvatarSquare";
 
 import { Container, Info } from "./styles";
@@ -11,6 +12,7 @@ interface FriendCardProps {
 
 const FriendCard: React.FC<FriendCardProps> = ({ id, name, avatarUrl }) => {
   const { me } = useAuthentication();
+
   return (
     <Container>
       <AvatarSquare size="72px" avatar={avatarUrl} onClick={() => me(id)} />

@@ -3,8 +3,8 @@ import api from "../Api/api";
 import {
   ICreatePostRequest,
   ICreatePostResponse,
+  IDeletePostRequest,
   IDeletePostResponse,
-  IDeletepostRequest,
   IListAllPostsResponse,
 } from "./types";
 
@@ -27,7 +27,7 @@ const createPost = async ({
 
 const deletePost = async ({
   id,
-}: IDeletepostRequest): Promise<IDeletePostResponse> => {
+}: IDeletePostRequest): Promise<IDeletePostResponse> => {
   const response = await api
     .delete(`/posts/${id}`)
     .then((res) => res)

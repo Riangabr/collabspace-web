@@ -31,7 +31,7 @@ interface ICreatePostResponse extends AppResponse {
   data?: IPost;
 }
 
-interface IDeletepostRequest {
+interface IDeletePostRequest {
   id: string;
 }
 
@@ -48,7 +48,7 @@ export type {
   IPost,
   ICreatePostRequest,
   ICreatePostResponse,
-  IListAllPostsResponse,
-  IDeletepostRequest,
+  IDeletePostRequest,
   IDeletePostResponse,
+  IListAllPostsResponse,
 };

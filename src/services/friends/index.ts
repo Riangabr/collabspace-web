@@ -1,20 +1,20 @@
 import api from "../Api/api";
 
 import {
-  IListAllFriendsByUserRequest,
-  IListAllFriendsByUserResponse,
-  IListAllRequestsByUserResponse,
-  IListAllRequestsByUserRequest,
-  ICreateFriendResponse,
-  ICreateFriendRequest,
-  ICancelRequestResponse,
-  ICancelRequestRequest,
   IAcceptRequestRequest,
   IAcceptRequestResponse,
-  IRecuseRequestResponse,
-  IRecuseRequestRequest,
-  IDeleteFriendResponse,
+  ICancelRequestRequest,
+  ICancelRequestResponse,
+  ICreateFriendRequest,
+  ICreateFriendResponse,
   IDeleteFriendRequest,
+  IDeleteFriendResponse,
+  IListAllFriendsByUserRequest,
+  IListAllFriendsByUserResponse,
+  IListAllRequestsByUserRequest,
+  IListAllRequestsByUserResponse,
+  IRecuseRequestRequest,
+  IRecuseRequestResponse,
 } from "./types";
 
 const listAllFriendsByUser = async ({

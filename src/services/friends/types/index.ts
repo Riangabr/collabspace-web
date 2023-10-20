@@ -53,7 +53,7 @@ interface ICreateFriendResponse extends AppResponse {
   data?: {
     id: string;
     userId1: string;
-    userId2: string | null;
+    userId2: string;
     actionId1: 1 | 2;
     actionId2: 3 | 4 | null;
     createdAt: string;
@@ -89,8 +89,8 @@ export type {
   IRequest,
   IListAllFriendsByUserRequest,
   IListAllFriendsByUserResponse,
-  IListAllRequestsByUserResponse,
   IListAllRequestsByUserRequest,
+  IListAllRequestsByUserResponse,
   ICreateFriendRequest,
   ICreateFriendResponse,
   ICancelRequestRequest,

@@ -13,6 +13,7 @@ export const Container = styled.div`
   padding: 40px;
   background: var(--zinc-800);
   border-radius: 8px;
+
   position: relative;
 `;
 
@@ -209,7 +210,6 @@ export const BoxOptions = styled.div<BoxOptionsProps>`
   right: 0px;
   width: 20rem;
 
-  display: flex;
   display: ${({ $boxOptions }) => ($boxOptions ? "flex" : "none")};
   flex-direction: column;
   background: var(--zinc-900);

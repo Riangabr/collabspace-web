@@ -1,8 +1,11 @@
-import moment from "moment";
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { useState, useEffect, useCallback, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import moment from "moment";
 
+import { IUser } from "../../services/users/types";
+import { listUserById, updateAvatar, updateCover } from "../../services/users";
+import { IFriend, IRequest } from "../../services/friends/types";
 import {
   acceptRequest,
   cancelRequest,
@@ -12,53 +15,50 @@ import {
   listAllRequestsByUser,
   recuseRequest,
 } from "../../services/friends";
-import { IFriend, IRequest } from "../../services/friends/types";
-import { listUserById, updateAvatar, updateCover } from "../../services/users";
-import { IUser } from "../../services/users/types";
 
 import LayoutDefault from "../../layouts/Default";
 
 import AvatarCircle from "../../components/AvatarCircle";
+import RequestFriend from "../../components/RequestFriend";
 import FriendCard from "../../components/FriendCard";
 import Modal from "../../components/Modal";
-import RequestFriend from "../../components/RequestFriend";
 
 import { useAuthentication } from "../../contexts/Authentication";
 
 import {
   Camera,
-  Clock,
-  MapPin,
   PencilSimple,
+  MapPin,
   Phone,
-  UserCircleMinus,
+  Clock,
   UserCirclePlus,
+  UserCircleMinus,
 } from "phosphor-react";
 
 import {
-  AreaFriendButton,
-  ButtonEdit,
-  Contact,
   Container,
   Content,
+  Overview,
+  UserBanner,
   Cover,
   EditCoverButton,
+  UserInfo,
   EditInfoButton,
-  FormEdit,
-  FriendList,
-  Friends,
+  General,
+  Total,
   FriendshipArea,
   FriendshipButton,
-  General,
-  InputEdit,
-  Overview,
-  PreviewAvatar,
-  RequestList,
-  Requests,
+  Contact,
+  Friends,
+  FriendList,
+  AreaFriendButton,
   Sidebar,
-  Total,
-  UserBanner,
-  UserInfo,
+  Requests,
+  RequestList,
+  FormEdit,
+  InputEdit,
+  ButtonEdit,
+  PreviewAvatar,
 } from "./styles";
 
 moment.defineLocale("pt-br", {
@@ -76,7 +76,6 @@ const Profile: React.FC = () => {
     user: userLogged,
     handleAvatarUrl,
     handleCoverUrl,
-    signOut,
   } = useAuthentication();
 
   const [user, setUser] = useState<IUser | null>(null);
@@ -84,8 +83,8 @@ const Profile: React.FC = () => {
   const [requests, setRequests] = useState<IRequest[]>([]);
   const [userLoggedRequests, setUserLoggedRequests] = useState<IRequest[]>([]);
 
+  const [relationship, setRelationship] = useState(0);
   const [relationshipId, setRelationshipId] = useState<string>();
-  const [relationship, setRelationship] = useState(-1);
   const [modalEditAvatar, setModalEditAvatar] = useState(false);
   const [modalEditCover, setModalEditCover] = useState(false);
   const [modalPreviewAvatar, setModalPreviewAvatar] = useState(false);
@@ -158,7 +157,7 @@ const Profile: React.FC = () => {
     }
   }, [userLogged]);
 
-  const handleToggleReationship = useCallback(async () => {
+  const handleToggleRelationship = useCallback(async () => {
     try {
       switch (relationship) {
         case 1: // Enviar uma solicitação de amizade
@@ -171,6 +170,7 @@ const Profile: React.FC = () => {
                 setRelationshipId(data.id);
               }
             }
+
             if (result === "error") toast.error(message);
           }
           break;
@@ -184,8 +184,7 @@ const Profile: React.FC = () => {
             if (result === "error") toast.error(message);
           }
           break;
-
-        case 3: // Desfazer amizade
+        case 3: // Desfazer a amizade
           if (relationshipId) {
             const { result, message } = await deleteFriend({
               id: relationshipId,
@@ -202,12 +201,6 @@ const Profile: React.FC = () => {
             });
 
             if (result === "success") setRelationship(3);
-            if (result === "error") toast.error(message);
-
-            if (result === "success") {
-              setRelationship(3);
-            }
-
             if (result === "error") toast.error(message);
           }
           break;
@@ -309,6 +302,7 @@ const Profile: React.FC = () => {
     handleListAllRequestsByUser,
     handleListAllRequestsByUserLogged,
   ]);
+
   useEffect(() => {
     let leave = false;
     const userLoggedId = userLogged?.id;
@@ -412,7 +406,7 @@ const Profile: React.FC = () => {
                   <FriendshipArea>
                     <FriendshipButton
                       $relationship={relationship}
-                      onClick={handleToggleReationship}
+                      onClick={handleToggleRelationship}
                     >
                       {relationship === 1 ? (
                         <UserCirclePlus size={20} weight="fill" />
@@ -521,10 +515,6 @@ const Profile: React.FC = () => {
               </RequestList>
             </Requests>
           )}
-
-          <a style={{ color: "white" }} onClick={signOut}>
-            Sair
-          </a>
         </Sidebar>
 
         <Modal

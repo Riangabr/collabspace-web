@@ -7,6 +7,8 @@ export const Container = styled.div`
 `;
 
 export const Info = styled.div`
+  cursor: pointer;
+
   h1 {
     font-size: 1.125rem;
     color: var(--zinc-200);
@@ -18,6 +20,4 @@ export const Info = styled.div`
     color: var(--zinc-200);
     font-weight: 200;
   }
-
-  cursor: pointer;
 `;

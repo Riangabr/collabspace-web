@@ -1,7 +1,7 @@
 const LogoRocket = ({ ...rest }) => (
   <svg
-    width="55"
-    height="55"
+    width="48"
+    height="48"
     viewBox="0 0 65 61"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

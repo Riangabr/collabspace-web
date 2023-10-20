@@ -17,6 +17,7 @@ export const User = styled.div`
 
 export const Info = styled.div`
   overflow: hidden;
+  cursor: pointer;
 
   h1 {
     font-size: 0.875rem;
