@@ -42,6 +42,15 @@ interface IListUserByIdResponse extends AppResponse {
   };
 }
 
+interface IUpdateUserRequest {
+  name?: string;
+  telephone?: string;
+  birthDate?: string;
+  bio?: string;
+}
+
+type IUpdateUserResponse = AppResponse;
+
 interface IUpdateAvatarRequest {
   avatarUrl: string;
 }
@@ -64,4 +73,6 @@ export type {
   IUpdateAvatarResponse,
   IUpdateCoverRequest,
   IUpdateCoverResponse,
+  IUpdateUserRequest,
+  IUpdateUserResponse,
 };

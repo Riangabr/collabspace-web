@@ -9,6 +9,8 @@ import {
   IUpdateAvatarResponse,
   IUpdateCoverRequest,
   IUpdateCoverResponse,
+  IUpdateUserRequest,
+  IUpdateUserResponse,
 } from "./types";
 
 const createUser = async ({
@@ -47,6 +49,25 @@ const listUserById = async ({
   return response.data;
 };
 
+const UupdateUser = async ({
+  name,
+  telephone,
+  birthDate,
+  bio,
+}: IUpdateUserRequest): Promise<IUpdateUserResponse> => {
+  const response = await api
+    .put("/users", {
+      name,
+      telephone,
+      birthDate,
+      bio,
+    })
+    .then((res) => res)
+    .catch((err) => err);
+
+  return response.data;
+};
+
 const updateAvatar = async ({
   avatarUrl,
 }: IUpdateAvatarRequest): Promise<IUpdateAvatarResponse> => {
@@ -69,4 +90,4 @@ const updateCover = async ({
   return response.data;
 };
 
-export { createUser, listUserById, updateAvatar, updateCover };
+export { createUser, listUserById, updateAvatar, UupdateUser, updateCover };

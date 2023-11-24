@@ -60,6 +60,7 @@ import {
   ButtonEdit,
   PreviewAvatar,
 } from "./styles";
+import { maskTelephone } from "../../utils/mask";
 
 moment.defineLocale("pt-br", {
   weekdays: "Segunda_Terça_Quarta_Quinta_Sexta_Sábado_Domingo".split("_"),
@@ -451,7 +452,7 @@ const Profile: React.FC = () => {
                 {user?.telephone && (
                   <span>
                     <Phone size={20} weight="bold" />
-                    {user.telephone}
+                    {maskTelephone(user.telephone)}
                   </span>
                 )}
 
